@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CountryListComponent } from './country-list.component';
+import { AthleteMenuComponent } from './athlete-menu.component';
 
-describe('CountryListComponent', () => {
-  let component: CountryListComponent;
-  let fixture: ComponentFixture<CountryListComponent>;
+describe('AthleteMenuComponent', () => {
+  let component: AthleteMenuComponent;
+  let fixture: ComponentFixture<AthleteMenuComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CountryListComponent ]
+      declarations: [ AthleteMenuComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CountryListComponent);
+    fixture = TestBed.createComponent(AthleteMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

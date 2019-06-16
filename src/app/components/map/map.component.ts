@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LocationsService} from '../../services/locations.service';
+import { LocationService } from '../../services/location.service';
+import { AthleteService } from '../../services/athlete.service';
 import { Marker } from '../../models/RunfindrWeb';
-import { Region, Event } from '../../models/Parkrun';
+import { Region, Event, Athlete } from '../../models/Parkrun';
 
 @Component({
   selector: 'app-map',
@@ -17,6 +18,8 @@ export class MapComponent implements OnInit {
 
   markers: Marker[];
 
+  athlete: Athlete;
+
   // Default location is bushy parkrun
   initialLatitude = 51.410992;
   iniitialLongitude = -0.335791;
@@ -25,7 +28,7 @@ export class MapComponent implements OnInit {
   lat = 51.410992;
   lng = -0.335791;
 
-  constructor(private route: ActivatedRoute, private locationsService: LocationsService) { }
+  constructor(private route: ActivatedRoute, private locationService: LocationService, private athleteService: AthleteService) { }
 
   protected mapReady(map) {
     this.map = map;
@@ -35,6 +38,9 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe( params => {
       this.updateCountry(params.region ? params.region : 'World');
+      if (params.athleteId) {
+        this.updateAthlete(params.athleteId);
+      }
     });
   }
 
@@ -54,8 +60,8 @@ export class MapComponent implements OnInit {
   }
 
   updateMap() {
-    this.locationsService.getRegion(this.selectedCountry).subscribe(region => {
-
+    this.locationService.getRegion(this.selectedCountry).subscribe(region => {
+      console.log(`Update map with new region data for ${region.name}`);
       // This should not be needed once we have all the markers
       this.lat = region.location.lat;
       this.lng = region.location.long;
@@ -67,7 +73,11 @@ export class MapComponent implements OnInit {
         this.map.setZoom(Math.max(region.location.zoom, 2));
       }
 
-      this.markers = this.createMarkers(region);
+      const markers = this.createMarkers(region);
+      if (this.athlete) {
+        this.setVisitedMarkers(markers, this.athlete);
+      }
+      this.markers = markers;
     });
   }
 
@@ -76,19 +86,42 @@ export class MapComponent implements OnInit {
   }
 
   allEvents(region: Region): Event[] {
-    let allEvents = region.regions.map(r => this.allEvents(r)).concat(region.events);
-    let flatEvents = [].concat.apply([], allEvents);
+    const allEvents = region.regions.map(r => this.allEvents(r)).concat(region.events);
+    const flatEvents = [].concat.apply([], allEvents);
     return flatEvents;
 }
 
   createEventMarker(e: Event): Marker {
-    console.log(e);
-    return {
-      lat: e.location.lat,
-      long: e.location.long,
-      title: e.name,
-      iconUrl: '/assets/event_balloon.png',
-    };
+    const marker = new Marker();
+    marker.lat = e.location.lat;
+    marker.long = e.location.long;
+    marker.title = e.name;
+    marker.setVisited(false);
+    return marker;
+  }
+
+  updateAthlete(athleteId: number) {
+    this.athleteService.getAthlete(athleteId).subscribe(athlete => {
+      console.log(`Athlete data recieved: ${athlete.name} (${athlete.id})`);
+      this.athlete = athlete;
+
+      const athleteNameSpan = document.getElementById('athleteName');
+      athleteNameSpan.innerHTML = String(athlete.name);
+
+      if (this.map) {
+        this.setVisitedMarkers(this.markers, athlete);
+      }
+    });
+  }
+
+  setVisitedMarkers(markers: Marker[], athlete: Athlete) {
+    athlete.results.forEach(r => this.setVisitedEvent(markers, r.event));
+  }
+
+  setVisitedEvent(markers: Marker[], eventName: string) {
+    if (markers) {
+      markers.filter(m => m.title === eventName).forEach(m => m.setVisited(true));
+    }
   }
 
 }

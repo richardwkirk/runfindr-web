@@ -12,7 +12,8 @@ import { HeaderComponent } from './components/layout/header/header.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { MapComponent } from './components/map/map.component';
 import { WelcomeComponent } from './components/pages/welcome/welcome.component';
-import { CountryListComponent } from './components/layout/header/country-list/country-list.component';
+import { CountryMenuComponent } from './components/layout/header/country-menu/country-menu.component';
+import { AthleteMenuComponent } from './components/layout/header/athlete-menu/athlete-menu.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { CountryListComponent } from './components/layout/header/country-list/co
     FooterComponent,
     MapComponent,
     WelcomeComponent,
-    CountryListComponent
+    CountryMenuComponent,
+    AthleteMenuComponent
   ],
   imports: [
     BrowserModule,

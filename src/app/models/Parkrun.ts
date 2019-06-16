@@ -25,4 +25,18 @@ export class Event {
     url: string;
 }
 
+export class Result {
+    event: string;
+    date: string;
+    runNumber: number;
+    position: number;
+    time: string;
+    ageGrading: string;
+}
+
+export class Athlete {
+    name: string;
+    id: number;
+    results: Result[];
+}
 

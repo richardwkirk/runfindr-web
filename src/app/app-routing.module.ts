@@ -5,6 +5,7 @@ import { WelcomeComponent } from './components/pages/welcome/welcome.component';
 
 const routes: Routes = [
   { path: 'map/:region', component: MapComponent },
+  { path: 'map/:region/:athleteId', component: MapComponent },
   { path: '', component: WelcomeComponent }
 ];
 

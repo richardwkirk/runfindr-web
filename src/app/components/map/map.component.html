@@ -5,6 +5,7 @@
         [longitude]="marker.long" 
         [iconUrl]="marker.iconUrl" 
         [title]="marker.title"
+        [zIndex]="marker.priority"
         *ngFor="let marker of this.markers">
       </agm-marker>
   </agm-map>

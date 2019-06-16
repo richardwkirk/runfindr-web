@@ -17,3 +17,7 @@
     .navbar-custom .nav-item:hover .nav-link {
       color: #ffffff;
     }
+   
+    .navbar-toggler-icon {
+      background-image: url("/assets/runfindr_icon_hires.png");
+    }
