@@ -1,0 +1,16 @@
+
+
+    /* change the link color */
+    .nav-link, 
+    .nav-label {
+    color: rgba(255, 255, 255, 0.8);
+    }
+  
+    /* change the color of active or hovered links */
+    .nav-link.active,
+    .nav-link:hover,
+    .nav-label.active,
+    .nav-label:hover {
+    color: #ffffff;
+    }
+

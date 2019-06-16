@@ -1,0 +1,11 @@
+<div class="container-fluid">
+  <agm-map (mapReady)="mapReady($event)" [latitude]="initialLatitude" [longitude]="initialLongitude" [zoom]="initialZoom" >
+      <agm-marker 
+        [latitude]="marker.lat" 
+        [longitude]="marker.long" 
+        [iconUrl]="marker.iconUrl" 
+        [title]="marker.title"
+        *ngFor="let marker of this.markers">
+      </agm-marker>
+  </agm-map>
+</div>
