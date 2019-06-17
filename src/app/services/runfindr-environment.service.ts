@@ -1,38 +1,51 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RunfindrEnvironmentService {
 
+  private envSource = new BehaviorSubject<any>(null);
+  loadedEnvironment = this.envSource.asObservable();
+
   env = environment;
 
-  loadedEnvironment;
-
-  constructor() { 
+  constructor(private http: HttpClient) { 
     this.load();
   }
 
   load() {
-    const runfindrEnvName = this.env["RUNFINDR_ENV"] || 'default';
-    console.log(`runfindr environment set to [${runfindrEnvName}]`);
-
-    const allEnvironments = this.env.runfindr;
-    console.log(`Available environments are [${Object.keys(allEnvironments)}]`);
+    const localEnvironment = this.env.runfindr;
     
-    if (runfindrEnvName in allEnvironments) {
-      this.loadedEnvironment = allEnvironments[runfindrEnvName];
-      console.log(`Loaded ${runfindrEnvName} environment`);
-      console.log(this.loadedEnvironment);
+    if ('environmentUrl' in localEnvironment) {
+      this.loadFromUrl(localEnvironment['environmentUrl']);
     }
     else {
-      console.log(`ERROR: ${runfindrEnvName} environment is not available.`)
+      this.envSource.next(localEnvironment);
+      console.log(`Using local runfindr environment settings...`);
+      console.log(this.envSource.value);
     }
+  }
+
+  loadFromUrl(environmentUrl) {
+    console.log(`Loading environment settings from ${environmentUrl}`);
+    this.http.get<any>(environmentUrl).subscribe(env => {
+      this.envSource.next(env);
+      console.log(`Loaded runfindr environment settings from server...`);
+      console.log(this.envSource.value);
+    });
   }
 
   getApiUrl() {
-    return `${this.loadedEnvironment.server.url}/api`;
+    if (this.envSource.value) {
+      return `${this.envSource.value.serverUrl}/api`;
+    }
+    else {
+      console.error('ERROR: runfindr environment has not been loaded when requesting URL.');
+      return null;
+    }
   }
-  
 }

@@ -1,0 +1,9 @@
+.pending {
+    background-color: #eaaa00;
+    height: 100vh; 
+    width: 100vw;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    color: rgba(255, 255, 255, 0.8);
+}

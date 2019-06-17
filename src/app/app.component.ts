@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RunfindrEnvironmentService } from './services/runfindr-environment.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'runfindr-web';
+  isReady = false;
+
+  constructor(private runfindrEnvironmentService: RunfindrEnvironmentService) {}
+
+  ngOnInit() {
+    this.runfindrEnvironmentService.loadedEnvironment.subscribe(env => {
+      if (env) {
+        this.isReady = true;
+      }
+    });
+  }
 }

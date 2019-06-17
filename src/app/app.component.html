@@ -1,5 +1,10 @@
-<div>
+<div *ngIf="isReady; then readyBlock else pendingBlock"></div>
+<ng-template #readyBlock>
   <app-header></app-header>
   <router-outlet></router-outlet>
   <app-footer></app-footer>
-</div>
+</ng-template>
+<ng-template #pendingBlock>
+    <p class="pending">Starting runfindr.uk...</p>
+  </ng-template>
+

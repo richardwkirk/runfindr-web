@@ -5,11 +5,7 @@
 export const environment = {
   production: false,
   runfindr: {
-    default: {
-      server: {
-        url: 'http://localhost:5000'
-      }
-    }
+    serverUrl: 'http://localhost:5000'
   }
 };
 
