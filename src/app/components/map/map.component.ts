@@ -22,7 +22,7 @@ export class MapComponent implements OnInit {
 
   // Default location is bushy parkrun
   initialLatitude = 51.410992;
-  iniitialLongitude = -0.335791;
+  initialLongitude = -0.335791;
   initialZoom = 2;
 
   lat = 51.410992;
@@ -30,7 +30,7 @@ export class MapComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private locationService: LocationService, private athleteService: AthleteService) { }
 
-  protected mapReady(map) {
+  mapReady(map) {
     this.map = map;
     this.updateMap();
   }
