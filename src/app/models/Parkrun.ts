@@ -34,6 +34,16 @@ export class Result {
     ageGrading: string;
 }
 
+export class AthleteKey {
+    name: string;
+    id: number;
+
+    constructor(athlete: Athlete) {
+        this.id = athlete.id;
+        this.name = athlete.name;
+    }
+}
+
 export class Athlete {
     name: string;
     id: number;

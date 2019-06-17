@@ -39,7 +39,13 @@ export class MapComponent implements OnInit {
     this.route.params.subscribe( params => {
       this.updateCountry(params.region ? params.region : 'World');
       if (params.athleteId) {
-        this.updateAthlete(params.athleteId);
+        this.athleteService.loadAthlete(params.athleteId);
+      }
+    });
+
+    this.athleteService.currentAthlete.subscribe(athlete => {
+      if (athlete) {
+        this.updateAthlete(athlete);
       }
     });
   }
@@ -68,7 +74,9 @@ export class MapComponent implements OnInit {
       console.log(`Showing ${this.selectedCountry} center as ${this.lat}/${this.lng}`);
 
       if (this.map) {
-        this.map.panTo({ lat: region.location.lat, lng: region.location.long });
+        if (region.name !== "World") {
+          this.map.panTo({ lat: region.location.lat, lng: region.location.long });
+        }
         console.log(`Setting zoom to ${region.location.zoom}`);
         this.map.setZoom(Math.max(region.location.zoom, 2));
       }
@@ -96,22 +104,27 @@ export class MapComponent implements OnInit {
     marker.lat = e.location.lat;
     marker.long = e.location.long;
     marker.title = e.name;
+    marker.url = e.url;
     marker.setVisited(false);
     return marker;
   }
 
-  updateAthlete(athleteId: number) {
-    this.athleteService.getAthlete(athleteId).subscribe(athlete => {
-      console.log(`Athlete data recieved: ${athlete.name} (${athlete.id})`);
-      this.athlete = athlete;
+  updateAthlete(athlete: Athlete) {
+    this.athlete = athlete;
 
-      const athleteNameSpan = document.getElementById('athleteName');
-      athleteNameSpan.innerHTML = String(athlete.name);
+    const athleteNameSpan = document.getElementById('athleteName');
+    athleteNameSpan.innerHTML = String(athlete.name);
 
-      if (this.map) {
-        this.setVisitedMarkers(this.markers, athlete);
-      }
-    });
+    this.clearMarkers(this.markers);
+    if (this.map) {
+      this.setVisitedMarkers(this.markers, athlete);
+    }
+  }
+
+  clearMarkers(markers: Marker[]) {
+    if (markers) {
+      markers.forEach(m => m.setVisited(false));
+    }
   }
 
   setVisitedMarkers(markers: Marker[], athlete: Athlete) {
@@ -124,4 +137,7 @@ export class MapComponent implements OnInit {
     }
   }
 
+  markerClicked(marker) {
+    console.log(marker);
+  }
 }

@@ -13,11 +13,18 @@
       <span class="nav-label" id="athleteName">Athlete</span>
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <form class="px-4 py-2">
-            <input type="search" class="form-control" id="searchAthlete" autofocus="autofocus">
+      <form name="searchAthlete" class="px-4 py-2">  
+        <small>Search by athlete id...</small>
+        <div class="input-group">
+            <p>A</p>
+            <input type="number" class="form-control" id="searchAthleteId" autofocus="autofocus" [formControl]="athleteSearchControl">  
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="button" (click)="searchAthlete()">Go!</button>
+            </span>
+        </div>
         </form>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item" routerLink="/map/{{country.name}}" *ngFor="let country of this.countries">{{country.name}}</a>
+      <a class="dropdown-item" [routerLink]="" *ngFor="let athleteKey of this.recentAthletes" (click)="selectAthlete(athleteKey.id)">{{athleteKey.name}} (A{{athleteKey.id}})</a>
     </div>
   </li>
 </ul>

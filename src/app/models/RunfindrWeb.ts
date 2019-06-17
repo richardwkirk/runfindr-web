@@ -5,6 +5,7 @@ export class Marker {
     iconUrl: string;
     visited: boolean;
     priority = 1;
+    url: string;
 
     static getIconUrl(visited: boolean): string {
         return visited ? '/assets/event_visited_balloon.png' : '/assets/event_balloon.png';
