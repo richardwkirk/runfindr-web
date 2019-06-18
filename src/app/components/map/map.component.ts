@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LocationService } from '../../services/location.service';
 import { AthleteService } from '../../services/athlete.service';
-import { Marker } from '../../models/RunfindrWeb';
+import { Marker, MarkerSet, VisitType } from '../../models/RunfindrWeb';
 import { Region, Event, Athlete } from '../../models/Parkrun';
 
 @Component({
@@ -16,9 +16,10 @@ export class MapComponent implements OnInit {
 
   selectedCountry = 'World';
 
-  markers: Marker[];
+  markerSet: MarkerSet = new MarkerSet();
 
   athlete: Athlete;
+  compareAthletes: Athlete[];
 
   // Default location is bushy parkrun
   initialLatitude = 51.410992;
@@ -39,7 +40,7 @@ export class MapComponent implements OnInit {
     this.route.params.subscribe( params => {
       this.updateCountry(params.region ? params.region : 'World');
       if (params.athleteId) {
-        this.athleteService.loadAthlete(params.athleteId);
+        this.athleteService.loadAthlete(params.athleteId, false);
       }
     });
 
@@ -47,6 +48,10 @@ export class MapComponent implements OnInit {
       if (athlete) {
         this.updateAthlete(athlete);
       }
+    });
+
+    this.athleteService.compareAthletes.subscribe(athletes => {
+      this.updateCompareAthletes(athletes);
     });
   }
 
@@ -81,32 +86,9 @@ export class MapComponent implements OnInit {
         this.map.setZoom(Math.max(region.location.zoom, 2));
       }
 
-      const markers = this.createMarkers(region);
-      if (this.athlete) {
-        this.setVisitedMarkers(markers, this.athlete);
-      }
-      this.markers = markers;
+      this.markerSet = this.markerSet.createMarkers(region);
+      this.setVisitedMarkers();
     });
-  }
-
-  createMarkers(region: Region): Marker[] {
-    return this.allEvents(region).map(e => this.createEventMarker(e));
-  }
-
-  allEvents(region: Region): Event[] {
-    const allEvents = region.regions.map(r => this.allEvents(r)).concat(region.events);
-    const flatEvents = [].concat.apply([], allEvents);
-    return flatEvents;
-}
-
-  createEventMarker(e: Event): Marker {
-    const marker = new Marker();
-    marker.lat = e.location.lat;
-    marker.long = e.location.long;
-    marker.title = e.name;
-    marker.url = e.url;
-    marker.setVisited(false);
-    return marker;
   }
 
   updateAthlete(athlete: Athlete) {
@@ -115,25 +97,34 @@ export class MapComponent implements OnInit {
     const athleteNameSpan = document.getElementById('athleteName');
     athleteNameSpan.innerHTML = String(athlete.name);
 
-    this.clearMarkers(this.markers);
     if (this.map) {
-      this.setVisitedMarkers(this.markers, athlete);
+      this.setVisitedMarkers();
     }
   }
 
-  clearMarkers(markers: Marker[]) {
-    if (markers) {
-      markers.forEach(m => m.setVisited(false));
+  updateCompareAthletes(compareAthletes: Athlete[]) {
+    this.compareAthletes = compareAthletes;
+    this.setVisitedMarkers();
+  }
+
+  setVisitedMarkers() {
+    this.markerSet.clearMarkers();
+    if (this.compareAthletes.length > 0) {
+      this.setVisitedMarkersForAthlete(this.compareAthletes[0], VisitType.Primary);
+      this.compareAthletes.slice(1).forEach(a => this.setVisitedMarkersForAthlete(a, VisitType.Secondary));
+    }
+    else if (this.athlete) {
+      this.setVisitedMarkersForAthlete(this.athlete, VisitType.Primary);
     }
   }
 
-  setVisitedMarkers(markers: Marker[], athlete: Athlete) {
-    athlete.results.forEach(r => this.setVisitedEvent(markers, r.event));
+  setVisitedMarkersForAthlete(athlete: Athlete, visitType: VisitType) {
+    athlete.results.forEach(r => this.setVisitedEvent(r.event, visitType));
   }
 
-  setVisitedEvent(markers: Marker[], eventName: string) {
-    if (markers) {
-      markers.filter(m => m.title === eventName).forEach(m => m.setVisited(true));
+  setVisitedEvent(eventName: string, visitType: VisitType) {
+    if (this.markerSet) {
+      this.markerSet.markers.filter(m => m.title === eventName).forEach(m => m.setVisited(visitType));
     }
   }
 

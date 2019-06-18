@@ -10,6 +10,9 @@ import { AppComponent } from './app.component';
 
 import { AgmCoreModule } from '@agm/core';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
 import { HeaderComponent } from './components/layout/header/header.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { MapComponent } from './components/map/map.component';
@@ -38,7 +41,9 @@ import { AthleteMenuComponent } from './components/layout/header/athlete-menu/at
     StorageServiceModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDw4h1qbvLB0V5F63ZKTtuyBfwpONJprlg'
-    })
+    }),
+    BrowserAnimationsModule,
+    MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

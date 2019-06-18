@@ -7,7 +7,7 @@
           [title]="marker.title"
           [zIndex]="marker.priority"
           (markerClick)="markerClicked(marker)"
-          *ngFor="let marker of this.markers">
+          *ngFor="let marker of this.markerSet.markers">
           <agm-info-window>
             <div>
               <p><i>{{marker.title}}</i></p>
