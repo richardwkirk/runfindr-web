@@ -16,34 +16,27 @@ export class Marker {
     priority = 1;
     url: string;
 
-    getIconUrl(): string {
+    setVisitSpecificAttributes() {
         if (this.visitType === (VisitType.Primary | VisitType.Secondary)) {
-            return '/assets/event_visited_both_balloon.png';
+            this.iconUrl = '/assets/event_visited_both_balloon.png';
+            this.priority = 9;
         }
         if ((this.visitType & VisitType.Primary) != 0) {
-            return '/assets/event_visited_balloon.png';
+            this.iconUrl = '/assets/event_visited_balloon.png';
+            this.priority = 9;
         }
         if ((this.visitType & VisitType.Secondary) != 0) {
-            return '/assets/event_visited_other_balloon.png';
+            this.iconUrl = '/assets/event_visited_other_balloon.png';
+            this.priority = 5
         }
-        return '/assets/event_balloon.png';
-    }
-
-    getPriority() {
-        if ((this.visitType & VisitType.Primary) != 0) {
-            return 9;
-        }
-        if ((this.visitType & VisitType.Secondary) != 0) {
-            return 5;
-        }
-        return 1;
+        this.iconUrl = '/assets/event_balloon.png';
+        this.priority = 1;
     }
 
     setVisited(visitType: VisitType) {
         this.visitType |= visitType;
         this.visited = this.visitType !== VisitType.NotVisited;
-        this.iconUrl = this.getIconUrl();
-        this.priority = this.getPriority();
+        this.setVisitSpecificAttributes();
     }
 }
 
