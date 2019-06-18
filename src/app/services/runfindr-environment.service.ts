@@ -45,4 +45,13 @@ export class RunfindrEnvironmentService {
       return null;
     }
   }
+
+  getGoogleApiKey() {
+    if (this.envSource.value) {
+      return this.envSource.value.googleApiKey;
+    } else {
+      console.error('ERROR: runfindr environment has not been loaded when requesting Google API key.');
+      return null;
+    }
+  }
 }

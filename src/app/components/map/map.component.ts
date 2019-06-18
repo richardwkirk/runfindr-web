@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LocationService } from '../../services/location.service';
 import { AthleteService } from '../../services/athlete.service';
-import { Marker, MarkerSet, VisitType } from '../../models/RunfindrWeb';
-import { Region, Event, Athlete } from '../../models/Parkrun';
+import { MarkerSet, VisitType } from '../../models/RunfindrWeb';
+import { Athlete } from '../../models/Parkrun';
 
 @Component({
   selector: 'app-map',

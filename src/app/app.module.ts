@@ -2,8 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { StorageServiceModule } from 'ngx-webstorage-service'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StorageServiceModule } from 'ngx-webstorage-service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +20,8 @@ import { WelcomeComponent } from './components/pages/welcome/welcome.component';
 import { CountryMenuComponent } from './components/layout/header/country-menu/country-menu.component';
 import { AthleteMenuComponent } from './components/layout/header/athlete-menu/athlete-menu.component';
 
+import { LAZY_MAPS_API_CONFIG } from '@agm/core';
+import { MapsConfig } from './maps-config';
 
 @NgModule({
   declarations: [
@@ -39,13 +41,14 @@ import { AthleteMenuComponent } from './components/layout/header/athlete-menu/at
     ReactiveFormsModule,
     NgbModule,
     StorageServiceModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDw4h1qbvLB0V5F63ZKTtuyBfwpONJprlg'
-    }),
+    AgmCoreModule.forRoot(),
     BrowserAnimationsModule,
     MatSlideToggleModule
   ],
-  providers: [],
+  providers: [{
+    provide: LAZY_MAPS_API_CONFIG,
+    useClass: MapsConfig
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
