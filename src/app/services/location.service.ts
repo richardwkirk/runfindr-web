@@ -8,7 +8,7 @@ import { RunfindrEnvironmentService } from './runfindr-environment.service';
   providedIn: 'root'
 })
 export class LocationService {
-  
+
   constructor(private runfindrEnvironmentService: RunfindrEnvironmentService, private http: HttpClient) { }
 
   getCountries(): Observable<Country[]> {

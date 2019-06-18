@@ -17,7 +17,7 @@ export class SearchHistoryService {
 
   recentAthleteCount = 10;
 
-  constructor(@Inject(LOCAL_STORAGE) private storage: StorageService, private athleteService: AthleteService) { 
+  constructor(@Inject(LOCAL_STORAGE) private storage: StorageService, private athleteService: AthleteService) {
     this.recentAthletesSource.next(this.storage.get(this.STORAGE_KEY) || []);
     this.athleteService.currentAthlete.subscribe(athlete => {
       if (athlete) {
@@ -28,9 +28,9 @@ export class SearchHistoryService {
 
   updateAthlete(athlete) {
     console.log(`Adding ${athlete.name} to recent athletes list.`);
-    
+
     // Update from local storage
-    var recent = this.storage.get(this.STORAGE_KEY) || [];
+    let recent = this.storage.get(this.STORAGE_KEY) || [];
 
     // Add the latest result to the list
     const athleteKey = new AthleteKey(athlete);

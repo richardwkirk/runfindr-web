@@ -13,17 +13,15 @@ export class RunfindrEnvironmentService {
 
   env = environment;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.load();
   }
 
   load() {
     const localEnvironment = this.env.runfindr;
-    
     if ('environmentUrl' in localEnvironment) {
       this.loadFromUrl(localEnvironment['environmentUrl']);
-    }
-    else {
+    } else {
       this.envSource.next(localEnvironment);
       console.log(`Using local runfindr environment settings...`);
       console.log(this.envSource.value);
@@ -42,8 +40,7 @@ export class RunfindrEnvironmentService {
   getApiUrl() {
     if (this.envSource.value) {
       return `${this.envSource.value.serverUrl}/api`;
-    }
-    else {
+    } else {
       console.error('ERROR: runfindr environment has not been loaded when requesting URL.');
       return null;
     }

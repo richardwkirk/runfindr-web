@@ -15,15 +15,14 @@ export class AthleteService {
   private compareAthleteSource = new BehaviorSubject<Athlete[]>([]);
   compareAthletes = this.compareAthleteSource.asObservable();
 
-  constructor(private runfindrEnvironmentService : RunfindrEnvironmentService, private http: HttpClient) { }
+  constructor(private runfindrEnvironmentService: RunfindrEnvironmentService, private http: HttpClient) { }
 
   loadAthlete(athleteId: number, compare: boolean) {
     this.getAthlete(athleteId).subscribe(athlete => {
       console.log(`Athlete data recieved: ${athlete.name} (${athlete.id})`);
       if (!compare) {
         this.changeAthlete(athlete);
-      }
-      else {
+      } else {
         this.addCompareAthlete(athlete);
       }
     });
@@ -48,8 +47,7 @@ export class AthleteService {
   toggleCompare(doCompare: boolean) {
     if (doCompare) {
       this.compareAthleteSource.next(this.athleteSource.value ? [this.athleteSource.value] : []);
-    }
-    else {
+    } else {
       this.compareAthleteSource.next([]);
     }
   }

@@ -18,7 +18,7 @@ export class AthleteMenuComponent implements OnInit {
   athleteSearchControl = new FormControl('');
   compareAthleteControl = new FormControl('');
 
-  constructor(private athleteService: AthleteService, private searchHistoryService : SearchHistoryService) { }
+  constructor(private athleteService: AthleteService, private searchHistoryService: SearchHistoryService) { }
 
   ngOnInit() {
     this.searchHistoryService.recentAthletes.subscribe(athletes => {
@@ -37,16 +37,16 @@ export class AthleteMenuComponent implements OnInit {
   }
 
   excludeCompareAthletesFromRecentList() {
-    this.visiableRecentAthletes = this.recentAthletes.filter(a => !this.compareAthletes || !this.compareAthletes.map(a => a.id).includes(a.id));
+    const excludeCompareAthlete = (ak: AthleteKey) => !this.compareAthletes || !this.compareAthletes.map(a => a.id).includes(ak.id);
+    this.visiableRecentAthletes = this.recentAthletes.filter(excludeCompareAthlete);
   }
- 
+
   searchAthlete() {
     if (this.athleteSearchControl.value) {
       console.log(`Searching for athlete ${this.athleteSearchControl.value}`);
       this.athleteService.loadAthlete(this.athleteSearchControl.value, this.compareAthleteControl.value);
-    }
-    else {
-      alert("Please enter an athlete id.");
+    } else {
+      alert('Please enter an athlete id.');
     }
   }
 

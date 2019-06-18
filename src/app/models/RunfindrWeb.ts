@@ -20,14 +20,17 @@ export class Marker {
         if (this.visitType === (VisitType.Primary | VisitType.Secondary)) {
             this.iconUrl = '/assets/event_visited_both_balloon.png';
             this.priority = 9;
+            return;
         }
-        if ((this.visitType & VisitType.Primary) != 0) {
+        if ((this.visitType & VisitType.Primary) !== 0) {
             this.iconUrl = '/assets/event_visited_balloon.png';
             this.priority = 9;
+            return;
         }
-        if ((this.visitType & VisitType.Secondary) != 0) {
+        if ((this.visitType & VisitType.Secondary) !== 0) {
             this.iconUrl = '/assets/event_visited_other_balloon.png';
-            this.priority = 5
+            this.priority = 5;
+            return;
         }
         this.iconUrl = '/assets/event_balloon.png';
         this.priority = 1;
