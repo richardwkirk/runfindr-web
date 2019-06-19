@@ -79,7 +79,7 @@ export class MapComponent implements OnInit {
       console.log(`Showing ${this.selectedCountry} center as ${this.lat}/${this.lng}`);
 
       if (this.map) {
-        if (region.name !== "World") {
+        if (region.name !== 'World') {
           this.map.panTo({ lat: region.location.lat, lng: region.location.long });
         }
         console.log(`Setting zoom to ${region.location.zoom}`);
@@ -112,8 +112,7 @@ export class MapComponent implements OnInit {
     if (this.compareAthletes.length > 0) {
       this.setVisitedMarkersForAthlete(this.compareAthletes[0], VisitType.Primary);
       this.compareAthletes.slice(1).forEach(a => this.setVisitedMarkersForAthlete(a, VisitType.Secondary));
-    }
-    else if (this.athlete) {
+    } else if (this.athlete) {
       this.setVisitedMarkersForAthlete(this.athlete, VisitType.Primary);
     }
   }
