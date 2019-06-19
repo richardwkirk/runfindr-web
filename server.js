@@ -8,6 +8,7 @@ app.use(express.static(__dirname + '/dist/runfindr-web'));
 // Handle the environment request
 app.get('/env', function(req, res) {
     res.json({ 
+      environmentUrl: null,
       serverUrl: process.env.RUNFINDR_SERVER_URL || 'http://SERVER_URL_NOT_CONFIGURED',
       googleApiKey: process.env.GOOGLE_API_KEY || 'API_KEY_NOT_CONFIGURED',
     });

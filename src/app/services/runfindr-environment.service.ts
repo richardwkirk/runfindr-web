@@ -3,6 +3,12 @@ import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 
+class RunfindrEnvironmentVariables {
+  environmentUrl: string;
+  serverUrl: string;
+  googleApiKey: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,9 +24,9 @@ export class RunfindrEnvironmentService {
   }
 
   load() {
-    const localEnvironment = this.env.runfindr;
-    if ('environmentUrl' in localEnvironment) {
-      this.loadFromUrl(localEnvironment['environmentUrl']);
+    const localEnvironment: RunfindrEnvironmentVariables = this.env.runfindr;
+    if ('environmentUrl' in localEnvironment && localEnvironment.environmentUrl !== null) {
+      this.loadFromUrl(localEnvironment.environmentUrl);
     } else {
       this.envSource.next(localEnvironment);
       console.log(`Using local runfindr environment settings...`);

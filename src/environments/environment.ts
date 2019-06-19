@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   runfindr: {
+    environmentUrl: null,
     serverUrl: 'http://localhost:5000',
     googleApiKey: 'INSERT_API_KEY_HERE'
   }
