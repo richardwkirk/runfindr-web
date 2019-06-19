@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { StorageServiceModule } from 'ngx-webstorage-service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -40,7 +39,6 @@ import { MapsConfig } from './maps-config';
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    StorageServiceModule,
     AgmCoreModule.forRoot(),
     BrowserAnimationsModule,
     MatSlideToggleModule
