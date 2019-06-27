@@ -1,6 +1,8 @@
 export const environment = {
   production: true,
   runfindr: {
-    environmentUrl: '/env'
+    environmentUrl: '/env',
+    serverUrl: null,
+    googleApiKey: null
   }
 };
