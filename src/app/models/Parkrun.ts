@@ -10,19 +10,25 @@ export class Country {
     url: string;
 }
 
+export class Event {
+    name: string;
+    shortname: string;
+    location: Location;
+    url: string;
+}
+
 export class Region {
     name: string;
     location: Location;
     regions: Region[];
     events: Event[];
     url: string;
-}
 
-export class Event {
-    name: string;
-    shortname: string;
-    location: Location;
-    url: string;
+    static allEvents(region): Event[] {
+        const allEvents = region.regions.map(r => Region.allEvents(r)).concat(region.events);
+        const flatEvents = [].concat.apply([], allEvents);
+        return flatEvents;
+    }
 }
 
 export class Result {

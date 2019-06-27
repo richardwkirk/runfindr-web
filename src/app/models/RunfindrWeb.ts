@@ -1,4 +1,4 @@
-import { Region, Event, Athlete } from './Parkrun';
+import { Region, Event, AthleteKey, Athlete, Result } from './Parkrun';
 
 export enum VisitType {
     NotVisited = 0,
@@ -6,15 +6,40 @@ export enum VisitType {
     Secondary = 2
 }
 
-export class Marker {
-    lat: number;
-    long: number;
-    title: string;
-    iconUrl: string;
+export class Visitor {
+    athlete: AthleteKey;
+    visits: Result[] = [];
+
+    constructor(athlete: AthleteKey) {
+        this.athlete = athlete;
+    }
+
+    addResult(result: Result) {
+        this.visits.push(result);
+    }
+
+    firstVisit() {
+        if (this.visits.length !== 0) {
+            return this.visits[this.visits.length - 1].date;
+        }
+        return 'never';
+    }
+
+    pb() {
+        if (this.visits.length !== 0) {
+            return this.visits.reduce((min, r) => r.time < min ? r.time : min, this.visits[0].time);
+        }
+        return 'no run';
+    }
+}
+
+export class MappedEvent {
+    event: Event;
+    iconUrl = '/assets/event_balloon.png';
     visited: boolean;
     visitType: VisitType;
     priority = 1;
-    url: string;
+    visitors = {};
 
     setVisitSpecificAttributes() {
         if (this.visitType === (VisitType.Primary | VisitType.Secondary)) {
@@ -36,42 +61,45 @@ export class Marker {
         this.priority = 1;
     }
 
-    setVisited(visitType: VisitType) {
+    private setVisited(visitType: VisitType) {
         this.visitType |= visitType;
         this.visited = this.visitType !== VisitType.NotVisited;
         this.setVisitSpecificAttributes();
     }
+
+    clearVisits() {
+        this.visitType = VisitType.NotVisited;
+        this.visited = false;
+        this.visitors = [];
+        this.setVisitSpecificAttributes();
+    }
+
+    addVisit(athlete: Athlete, result: Result, isPrimary: boolean) {
+        this.setVisited(isPrimary ? VisitType.Primary : VisitType.Secondary);
+        if (!this.visitors.hasOwnProperty(athlete.id)) {
+            this.visitors[athlete.id] = new Visitor(athlete);
+        }
+        this.visitors[athlete.id].addResult(result);
+    }
 }
 
-export class MarkerSet {
-    markers: Marker[] = [];
+export class MappedEventHelper {
 
-    clearMarkers() {
-        this.markers.forEach(m => {
-            m.visitType = VisitType.NotVisited;
-            m.setVisited(VisitType.NotVisited);
-        });
+    static createMappedEvents(region: Region): MappedEvent[] {
+        return Region.allEvents(region).map(e => this.createEventMarker(e));
     }
 
-    createMarkers(region: Region): MarkerSet {
-        const markerSet = new MarkerSet();
-        markerSet.markers = this.allEvents(region).map(e => this.createEventMarker(e));
-        return markerSet;
-    }
-
-    allEvents(region: Region): Event[] {
-        const allEvents = region.regions.map(r => this.allEvents(r)).concat(region.events);
-        const flatEvents = [].concat.apply([], allEvents);
-        return flatEvents;
-    }
-
-    createEventMarker(e: Event): Marker {
-        const marker = new Marker();
-        marker.lat = e.location.lat;
-        marker.long = e.location.long;
-        marker.title = e.name;
-        marker.url = e.url;
-        marker.setVisited(VisitType.NotVisited);
+    static createEventMarker(e: Event): MappedEvent {
+        const marker = new MappedEvent();
+        marker.event = e;
         return marker;
     }
+
+    static clearMarkers(events: MappedEvent[]) {
+        events.forEach(m => {
+            m.visitType = VisitType.NotVisited;
+            m.clearVisits();
+        });
+    }
 }
+

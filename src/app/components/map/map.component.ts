@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LocationService } from '../../services/location.service';
 import { AthleteService } from '../../services/athlete.service';
-import { MarkerSet, VisitType } from '../../models/RunfindrWeb';
-import { Athlete } from '../../models/Parkrun';
+import { MappedEvent, MappedEventHelper, VisitType } from '../../models/RunfindrWeb';
+import { Region, Athlete, Result } from '../../models/Parkrun';
 
 @Component({
   selector: 'app-map',
@@ -16,7 +16,7 @@ export class MapComponent implements OnInit {
 
   selectedCountry = 'World';
 
-  markerSet: MarkerSet = new MarkerSet();
+  mappedEvents: MappedEvent[] = [];
 
   athlete: Athlete;
   compareAthletes: Athlete[];
@@ -71,8 +71,9 @@ export class MapComponent implements OnInit {
   }
 
   updateMap() {
-    this.locationService.getRegion(this.selectedCountry).subscribe(region => {
+    this.locationService.getRegion(this.selectedCountry).subscribe((region: Region) => {
       console.log(`Update map with new region data for ${region.name}`);
+
       // This should not be needed once we have all the markers
       this.lat = region.location.lat;
       this.lng = region.location.long;
@@ -86,7 +87,7 @@ export class MapComponent implements OnInit {
         this.map.setZoom(Math.max(region.location.zoom, 2));
       }
 
-      this.markerSet = this.markerSet.createMarkers(region);
+      this.mappedEvents = MappedEventHelper.createMappedEvents(region);
       this.setVisitedMarkers();
     });
   }
@@ -108,26 +109,26 @@ export class MapComponent implements OnInit {
   }
 
   setVisitedMarkers() {
-    this.markerSet.clearMarkers();
+    MappedEventHelper.clearMarkers(this.mappedEvents);
     if (this.compareAthletes.length > 0) {
-      this.setVisitedMarkersForAthlete(this.compareAthletes[0], VisitType.Primary);
-      this.compareAthletes.slice(1).forEach(a => this.setVisitedMarkersForAthlete(a, VisitType.Secondary));
+      this.setVisitedMarkersForAthlete(this.compareAthletes[0], true);
+      this.compareAthletes.slice(1).forEach(a => this.setVisitedMarkersForAthlete(a, false));
     } else if (this.athlete) {
-      this.setVisitedMarkersForAthlete(this.athlete, VisitType.Primary);
+      this.setVisitedMarkersForAthlete(this.athlete, true);
     }
   }
 
-  setVisitedMarkersForAthlete(athlete: Athlete, visitType: VisitType) {
-    athlete.results.forEach(r => this.setVisitedEvent(r.event, visitType));
+  setVisitedMarkersForAthlete(athlete: Athlete, isPrimary: boolean) {
+    athlete.results.forEach(r => this.setVisitedEvent(athlete, r, isPrimary));
   }
 
-  setVisitedEvent(eventName: string, visitType: VisitType) {
-    if (this.markerSet) {
-      this.markerSet.markers.filter(m => m.title === eventName).forEach(m => m.setVisited(visitType));
+  setVisitedEvent(athlete: Athlete, result: Result, isPrimary: boolean) {
+    if (this.mappedEvents) {
+      this.mappedEvents.filter(m => m.event.name === result.event).forEach(m => m.addVisit(athlete, result, isPrimary));
     }
   }
 
-  markerClicked(marker) {
-    console.log(marker);
+  eventSelected(mappedEvent) {
+    console.log(mappedEvent);
   }
 }
