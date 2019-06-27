@@ -25,6 +25,17 @@ export class Visitor {
         return 'never';
     }
 
+    firstVisitDate() {
+        const firstDateStr = this.firstVisit();
+        if (firstDateStr !== 'never') {
+            const year = parseInt(firstDateStr.substring(6, 10), 10);
+            const month = parseInt(firstDateStr.substring(3, 5), 10);
+            const day = parseInt(firstDateStr.substring(0, 2), 10);
+            return new Date(year, month, day);
+        }
+        return null;
+    }
+
     pb() {
         if (this.visits.length !== 0) {
             return this.visits.reduce((min, r) => r.time < min ? r.time : min, this.visits[0].time);

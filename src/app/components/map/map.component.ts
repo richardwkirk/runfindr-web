@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LocationService } from '../../services/location.service';
 import { AthleteService } from '../../services/athlete.service';
-import { MappedEvent, MappedEventHelper, VisitType } from '../../models/RunfindrWeb';
+import { MappedEvent, MappedEventHelper, Visitor } from '../../models/RunfindrWeb';
 import { Region, Athlete, Result } from '../../models/Parkrun';
+import { KeyValue } from '@angular/common';
 
 @Component({
   selector: 'app-map',
@@ -130,5 +131,9 @@ export class MapComponent implements OnInit {
 
   eventSelected(mappedEvent) {
     console.log(mappedEvent);
+  }
+
+  firstVisitOrder = (a: KeyValue<number, Visitor>, b: KeyValue<number, Visitor>): number => {
+    return a.value.firstVisitDate() < b.value.firstVisitDate() ? -1 : (b.value.firstVisitDate() < a.value.firstVisitDate() ? 1 : 0);
   }
 }
