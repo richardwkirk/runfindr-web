@@ -1,0 +1,24 @@
+.trumps-container {
+    padding: 20px;
+}
+
+.trumps-barcode {
+    text-align: center;
+}
+
+.card-title {
+    text-align: center;
+}
+
+.trump-values {
+    width: 100%;
+}
+
+.trump-values th {
+    font-style: italic;
+    font-weight: lighter;
+}
+
+.card-body {
+    width: 100%;
+}
