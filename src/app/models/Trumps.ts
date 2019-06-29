@@ -59,7 +59,7 @@ export class Card {
         return new Date(0, 0, 0, hours, mins, seconds, 0);
     }
 
-    calculatePIndex() : number {
+    calculatePIndex(): number {
         const pIndexValues = [];
 
         this.eventNames.forEach(k => {
@@ -72,17 +72,17 @@ export class Card {
         do {
             pIndex = pIndex + 1;
             countdown = countdown - (pIndexValues[pIndex] || 0);
-        } while (countdown > pIndex)
-        
+        } while (countdown > pIndex);
+
         return pIndex;
     }
 
-    calculateWilsonIndex() : number {
+    calculateWilsonIndex(): number {
         for (let i = 1; i < this.eventNumbers.length; ++i) {
             if (!this.eventNumbers[i]) {
                 return i - 1;
             }
         }
     }
-
 }
+
