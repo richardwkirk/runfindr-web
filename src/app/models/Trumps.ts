@@ -67,16 +67,15 @@ export class Card {
             pIndexValues[v] = (pIndexValues[v] || 0) + 1;
         });
 
+        let pIndex = 0;
         let countdown = this.eventCount;
-        for (let i = 1; i < pIndexValues.length; ++i) {
-            if (countdown >= i) {
-                countdown = countdown - (pIndexValues[i] || 0);
-            } else {
-                return i - 1;
-            }
-        }
-
-        return 0;
+        do {
+            pIndex = pIndex + 1;
+            console.log(`${pIndex}: ${countdown}`);
+            countdown = countdown - (pIndexValues[pIndex] || 0);
+        } while (countdown > pIndex)
+        
+        return pIndex;
     }
 
     calculateWilsonIndex() : number {
