@@ -3,7 +3,7 @@ import { Athlete } from './Parkrun';
 export class Card {
     athlete: Athlete;
     barcodeId: string;
-    pb = '99:99';
+    pb = '99:99:99';
     ageGrading = '0%';
     firstRun: string;
     pIndex = 0;
@@ -37,7 +37,7 @@ export class Card {
 
             this.eventNumbers[r.runNumber] = (this.eventNumbers[r.runNumber] || 0) + 1;
 
-            if (r.time < this.pb) {
+            if (this.convertTime(r.time) < this.convertTime(this.pb)) {
                 this.pb = r.time;
             }
 
@@ -52,6 +52,12 @@ export class Card {
         this.wilsonIndex = this.calculateWilsonIndex();
     }
 
+    convertTime(time: string): Date {
+        const seconds = parseInt(time.slice(-2), 10);
+        const mins = parseInt(time.slice(-5).slice(0, 2), 10);
+        const hours = (time.length > 5 ? parseInt(time.slice(0, time.length - 5), 10) : 0);
+        return new Date(0, 0, 0, hours, mins, seconds, 0);
+    }
 
     calculatePIndex() : number {
         const pIndexValues = [];
