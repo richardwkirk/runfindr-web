@@ -71,7 +71,6 @@ export class Card {
         let countdown = this.eventCount;
         do {
             pIndex = pIndex + 1;
-            console.log(`${pIndex}: ${countdown}`);
             countdown = countdown - (pIndexValues[pIndex] || 0);
         } while (countdown > pIndex)
         
