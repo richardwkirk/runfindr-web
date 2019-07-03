@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Country } from '../../../../models/Parkrun';
 import { LocationService} from '../../../../services/location.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-country-menu',
@@ -9,11 +10,20 @@ import { LocationService} from '../../../../services/location.service';
 })
 export class CountryMenuComponent implements OnInit {
 
+  selectedCountry = 'World';
+
   countries: Country[];
 
   constructor(private locationService: LocationService) { }
 
   ngOnInit() {
+    this.locationService.region.subscribe( r => {
+      if (r != null) {
+        this.selectedCountry = r.name;
+      }
+    });
+    
+
     this.locationService.getCountries().subscribe(countries => {
       this.countries = countries;
     });

@@ -1,12 +1,12 @@
-  .navbar-custom {
-    background-color: #eaaa00;
-  }
+    .navbar-custom {
+      background-color: #eaaa00;
+    }
 
-  /* change the brand and text color */
-  .navbar-custom .navbar-brand,
-  .navbar-custom .navbar-text {
-    color: rgba(255, 255, 255, 0.8);
-  }
+    /* change the brand and text color */
+    .navbar-custom .navbar-brand,
+    .navbar-custom .navbar-text {
+      color: rgba(255, 255, 255, 0.8);
+    }
 
     /* change the link color */
     .navbar-custom .navbar-nav .nav-link {
@@ -20,4 +20,16 @@
    
     .navbar-toggler-icon {
       background-image: url("/assets/runfindr_icon_hires.png");
+    }
+
+    .navbar-toggler {
+      color: #ffffff;
+      vertical-align: middle;
+    }
+
+    #navbarHeader a:active,
+    #navbarHeader a:visited,
+    #navbarHeader a:hover {
+      color: #ffffff;
+      text-decoration: none;
     }

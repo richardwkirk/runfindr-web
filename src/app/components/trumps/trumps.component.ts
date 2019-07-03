@@ -3,6 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { AthleteService } from '../../services/athlete.service';
 import { Athlete } from '../../models/Parkrun';
 import { Card } from '../../models/Trumps';
+import { LayoutService } from 'src/app/services/layout.service';
+import { MenuContext } from '../layout/LayoutOptions';
+
 @Component({
   selector: 'app-trumps',
   templateUrl: './trumps.component.html',
@@ -12,7 +15,9 @@ export class TrumpsComponent implements OnInit {
 
   cards: Card[] = [];
 
-  constructor(private route: ActivatedRoute, private athleteService: AthleteService) { }
+  constructor(private route: ActivatedRoute, private layoutService: LayoutService, private athleteService: AthleteService) { 
+    layoutService.setMenuContext([MenuContext.Athletes]);
+  }
 
   ngOnInit() {
     this.route.params.subscribe( params => {

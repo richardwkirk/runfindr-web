@@ -3,6 +3,8 @@ import { FormControl } from '@angular/forms';
 import { AthleteKey } from '../../../../models/Parkrun';
 import { AthleteService } from 'src/app/services/athlete.service';
 import { SearchHistoryService } from 'src/app/services/search-history.service';
+import { MenuContext } from '../../LayoutOptions';
+import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({
   selector: 'app-athlete-menu',
@@ -11,6 +13,8 @@ import { SearchHistoryService } from 'src/app/services/search-history.service';
 })
 export class AthleteMenuComponent implements OnInit {
 
+  showAthleteCompare = false;
+
   recentAthletes: AthleteKey[];
   visiableRecentAthletes: AthleteKey[];
   compareAthletes: AthleteKey[];
@@ -18,9 +22,15 @@ export class AthleteMenuComponent implements OnInit {
   athleteSearchControl = new FormControl('');
   compareAthleteControl = new FormControl('');
 
-  constructor(private athleteService: AthleteService, private searchHistoryService: SearchHistoryService) { }
+  constructor(private layoutService: LayoutService,
+              private athleteService: AthleteService,
+              private searchHistoryService: SearchHistoryService) { }
 
   ngOnInit() {
+    this.layoutService.menuContext.subscribe(context => {
+      this.showAthleteCompare = context != null ? context.indexOf(MenuContext.CompareAthletes) > -1 : false;
+    });
+
     this.searchHistoryService.recentAthletes.subscribe(athletes => {
       this.recentAthletes = athletes;
       this.excludeCompareAthletesFromRecentList();

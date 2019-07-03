@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LocationService } from '../../services/location.service';
 import { AthleteService } from '../../services/athlete.service';
+import { LayoutService } from '../../services/layout.service';
 import { MappedEvent, MappedEventHelper, Visitor } from '../../models/RunfindrWeb';
 import { Region, Athlete, Result } from '../../models/Parkrun';
 import { KeyValue } from '@angular/common';
+import { MenuContext } from '../layout/LayoutOptions';
 
 @Component({
   selector: 'app-map',
@@ -16,6 +18,7 @@ export class MapComponent implements OnInit {
   protected map: any;
 
   selectedCountry = 'World';
+  selectedRegion: Region;
 
   mappedEvents: MappedEvent[] = [];
 
@@ -30,7 +33,12 @@ export class MapComponent implements OnInit {
   lat = 51.410992;
   lng = -0.335791;
 
-  constructor(private route: ActivatedRoute, private locationService: LocationService, private athleteService: AthleteService) { }
+  constructor(private route: ActivatedRoute,
+              private layoutService: LayoutService,
+              private locationService: LocationService,
+              private athleteService: AthleteService) {
+    layoutService.setMenuContext([MenuContext.Countries, MenuContext.Athletes, MenuContext.CompareAthletes]);
+  }
 
   mapReady(map) {
     this.map = map;
@@ -39,9 +47,11 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe( params => {
-      this.updateCountry(params.region ? params.region : 'World');
-      if (params.athleteId) {
-        this.athleteService.loadAthlete(params.athleteId, false);
+      if (params) {
+        this.updateCountry(params.region ? params.region : 'World');
+        if (params.athleteId) {
+          this.athleteService.loadAthlete(params.athleteId, false);
+        }
       }
     });
 
@@ -54,43 +64,40 @@ export class MapComponent implements OnInit {
     this.athleteService.compareAthletes.subscribe(athletes => {
       this.updateCompareAthletes(athletes);
     });
+
+    this.locationService.region.subscribe(region => {
+      this.selectedRegion = region;
+      this.updateMap();
+    });
   }
 
   updateCountry(country: string) {
     this.selectedCountry = country;
     console.log(`Country set to ${this.selectedCountry}`);
-
-    this.updateCountryName();
-    if (this.map) {
-      this.updateMap();
-    }
-  }
-
-  updateCountryName() {
-    const regionNameSpan = document.getElementById('regionName');
-    regionNameSpan.innerHTML = this.selectedCountry;
+    this.locationService.selectRegion(country);
   }
 
   updateMap() {
-    this.locationService.getRegion(this.selectedCountry).subscribe((region: Region) => {
-      console.log(`Update map with new region data for ${region.name}`);
+    if (this.map != null && this.selectedRegion != null)
+    {
+      console.log(`Update map with new region data for ${this.selectedRegion.name}`);
 
       // This should not be needed once we have all the markers
-      this.lat = region.location.lat;
-      this.lng = region.location.long;
+      this.lat = this.selectedRegion.location.lat;
+      this.lng = this.selectedRegion.location.long;
       console.log(`Showing ${this.selectedCountry} center as ${this.lat}/${this.lng}`);
 
       if (this.map) {
-        if (region.name !== 'World') {
-          this.map.panTo({ lat: region.location.lat, lng: region.location.long });
+        if (this.selectedRegion.name !== 'World') {
+          this.map.panTo({ lat: this.selectedRegion.location.lat, lng: this.selectedRegion.location.long });
         }
-        console.log(`Setting zoom to ${region.location.zoom}`);
-        this.map.setZoom(Math.max(region.location.zoom, 2));
+        console.log(`Setting zoom to ${this.selectedRegion.location.zoom}`);
+        this.map.setZoom(Math.max(this.selectedRegion.location.zoom, 2));
       }
 
-      this.mappedEvents = MappedEventHelper.createMappedEvents(region);
+      this.mappedEvents = MappedEventHelper.createMappedEvents(this.selectedRegion);
       this.setVisitedMarkers();
-    });
+    }
   }
 
   updateAthlete(athlete: Athlete) {
