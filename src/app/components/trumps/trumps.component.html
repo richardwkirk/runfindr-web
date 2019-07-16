@@ -1,7 +1,10 @@
 <div class="trumps-container">
   <div class="card-columns">
     <div class="card bg-light mb-3" (dblclick)="this.removeCard(card.athlete.id)" *ngFor="let card of this.cards">
-      <img class="card-img-top" src="/assets/runfindr_icon_hires2.png" alt="Card image cap">
+      <div class="card-image">
+        <img class="card-img-top" src="/assets/runfindr_icon_hires2.png" alt="Runner trumps">
+        <button class="card-close-btn" (click)="this.removeCard(card.athlete.id)">x</button>
+      </div>
       <div class="card-body">
         <h5 class="card-title">{{card.athlete.name}}</h5>
         <table class="trump-values">
