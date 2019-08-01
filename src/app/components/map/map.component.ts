@@ -78,8 +78,7 @@ export class MapComponent implements OnInit {
   }
 
   updateMap() {
-    if (this.map != null && this.selectedRegion != null)
-    {
+    if (this.map != null && this.selectedRegion != null) {
       console.log(`Update map with new region data for ${this.selectedRegion.name}`);
 
       // This should not be needed once we have all the markers
