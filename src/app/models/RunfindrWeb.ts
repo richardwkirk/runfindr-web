@@ -21,7 +21,7 @@ export class Visitor {
 
     firstVisit() {
         if (this.visits.length !== 0) {
-            return this.visits[this.visits.length - 1].date;
+            return this.visits[0].date;
         }
         return 'never';
     }
@@ -57,7 +57,7 @@ export class MappedEvent {
 
     createLabel() {
         if (this.order) {
-            this.label = {color: 'white', 'font-size': 'xx-small', 'font-weight': 'bold', text: this.order};
+            this.label = {color: 'white', fontFamily: 'courier', fontSize: 'x-small', fontWeight: 'bold', text: this.order};
         }
         else {
             this.label = null;

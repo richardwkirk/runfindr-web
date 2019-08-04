@@ -148,12 +148,10 @@ export class MapComponent implements OnInit {
     const visitedEventOrder = {};
 
     const matchedResults = this.getMatchedResults(athletes);
-    console.log(matchedResults);
     matchedResults.forEach(r => {
       if (!visitedEventOrder[r[0].event]) {
         visitedEventOrder[r[0].event] = ++order;
       }
-      console.log(visitedEventOrder);
       for (let i = 0; i < athletes.length; ++i) {
         this.setVisitedEvent(athletes[i], r[i], true, this.settings.showOrder ? visitedEventOrder[r[i].event] : null);
       }
@@ -204,10 +202,6 @@ export class MapComponent implements OnInit {
 
   eventSelected(mappedEvent) {
     console.log(mappedEvent);
-  }
-
-  firstVisitOrder = (a: KeyValue<number, Visitor>, b: KeyValue<number, Visitor>): number => {
-    return a.value.firstVisitDate() < b.value.firstVisitDate() ? -1 : (b.value.firstVisitDate() < a.value.firstVisitDate() ? 1 : 0);
   }
 
   showSettings() {
