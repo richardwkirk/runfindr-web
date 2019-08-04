@@ -19,11 +19,19 @@ export class SearchHistoryService {
 
   constructor(@Inject(LOCAL_STORAGE) private storage: StorageService, private athleteService: AthleteService) {
     this.recentAthletesSource.next(this.storage.get(this.STORAGE_KEY) || []);
+
     this.athleteService.currentAthlete.subscribe(athlete => {
       if (athlete) {
         this.updateAthlete(athlete);
       }
     });
+
+    this.athleteService.compareAthletes.subscribe(athletes => {
+      if (athletes.length > 0) {
+        this.updateAthlete(athletes[athletes.length - 1]);
+      }
+    });
+
   }
 
   updateAthlete(athlete) {

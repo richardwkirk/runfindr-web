@@ -16,7 +16,7 @@ export class AthleteMenuComponent implements OnInit {
   showAthleteCompare = false;
 
   recentAthletes: AthleteKey[];
-  visiableRecentAthletes: AthleteKey[];
+  visibleRecentAthletes: AthleteKey[];
   compareAthletes: AthleteKey[];
 
   athleteSearchControl = new FormControl('');
@@ -48,7 +48,7 @@ export class AthleteMenuComponent implements OnInit {
 
   excludeCompareAthletesFromRecentList() {
     const excludeCompareAthlete = (ak: AthleteKey) => !this.compareAthletes || !this.compareAthletes.map(a => a.id).includes(ak.id);
-    this.visiableRecentAthletes = this.recentAthletes.filter(excludeCompareAthlete);
+    this.visibleRecentAthletes = this.recentAthletes.filter(excludeCompareAthlete);
   }
 
   searchAthlete() {

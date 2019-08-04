@@ -11,7 +11,10 @@ import { AppComponent } from './app.component';
 import { AgmCoreModule } from '@agm/core';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
+import { MatInputModule, MatFormFieldModule, MatDialogModule } from '@angular/material';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { HeaderComponent } from './components/layout/header/header.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
@@ -25,6 +28,8 @@ import { LAZY_MAPS_API_CONFIG } from '@agm/core';
 import { MapsConfig } from './maps-config';
 import { TrumpsInstructionsComponent } from './components/trumps/trumps-instructions/trumps-instructions.component';
 import { TrumpsCardComponent } from './components/trumps/trumps-card/trumps-card.component';
+import { MapSettingsDialogComponent } from './components/map/settings/map-settings-dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -37,7 +42,8 @@ import { TrumpsCardComponent } from './components/trumps/trumps-card/trumps-card
     AthleteMenuComponent,
     TrumpsComponent,
     TrumpsInstructionsComponent,
-    TrumpsCardComponent
+    TrumpsCardComponent,
+    MapSettingsDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +55,17 @@ import { TrumpsCardComponent } from './components/trumps/trumps-card/trumps-card
     AgmCoreModule.forRoot(),
     BrowserAnimationsModule,
     MatSlideToggleModule,
-    NgxBarcodeModule
+    NgxBarcodeModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatCheckboxModule
+  ],
+  exports: [
+    MapSettingsDialogComponent
+  ],
+  entryComponents: [
+    MapSettingsDialogComponent
   ],
   providers: [{
     provide: LAZY_MAPS_API_CONFIG,

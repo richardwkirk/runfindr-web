@@ -7,6 +7,9 @@ import { MappedEvent, MappedEventHelper, Visitor } from '../../models/RunfindrWe
 import { Region, Athlete, Result } from '../../models/Parkrun';
 import { KeyValue } from '@angular/common';
 import { MenuContext } from '../layout/LayoutOptions';
+import { MatDialog } from '@angular/material/dialog';
+import { MapSettings } from 'src/app/models/MapSettings';
+import { MapSettingsDialogComponent } from './settings/map-settings-dialog.component';
 
 @Component({
   selector: 'app-map',
@@ -25,6 +28,8 @@ export class MapComponent implements OnInit {
   athlete: Athlete;
   compareAthletes: Athlete[];
 
+  private settings: MapSettings;
+
   // Default location is bushy parkrun
   initialLatitude = 51.410992;
   initialLongitude = -0.335791;
@@ -36,8 +41,15 @@ export class MapComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private layoutService: LayoutService,
               private locationService: LocationService,
-              private athleteService: AthleteService) {
+              private athleteService: AthleteService,
+              private dialog: MatDialog) {
+
     layoutService.setMenuContext([MenuContext.Countries, MenuContext.Athletes, MenuContext.CompareAthletes]);
+
+    this.settings = {
+      showOrder: false,
+      showTogetherness: false
+    };
   }
 
   mapReady(map) {
@@ -49,7 +61,11 @@ export class MapComponent implements OnInit {
     this.route.params.subscribe( params => {
       if (params) {
         this.updateCountry(params.region ? params.region : 'World');
-        if (params.athleteId) {
+        if (params.compareId) {
+          this.athleteService.loadAthlete(params.athleteId, true);
+          this.athleteService.loadAthlete(params.compareId, true);
+        }
+        else if (params.athleteId) {
           this.athleteService.loadAthlete(params.athleteId, false);
         }
       }
@@ -117,7 +133,9 @@ export class MapComponent implements OnInit {
 
   setVisitedMarkers() {
     MappedEventHelper.clearMarkers(this.mappedEvents);
-    if (this.compareAthletes.length > 0) {
+    if (this.settings.showTogetherness && this.compareAthletes.length > 0) {
+      this.setVisitedMarkersForAthletesTogether(this.compareAthletes);
+    } else if (this.compareAthletes.length > 0) {
       this.setVisitedMarkersForAthlete(this.compareAthletes[0], true);
       this.compareAthletes.slice(1).forEach(a => this.setVisitedMarkersForAthlete(a, false));
     } else if (this.athlete) {
@@ -125,13 +143,62 @@ export class MapComponent implements OnInit {
     }
   }
 
-  setVisitedMarkersForAthlete(athlete: Athlete, isPrimary: boolean) {
-    athlete.results.forEach(r => this.setVisitedEvent(athlete, r, isPrimary));
+  setVisitedMarkersForAthletesTogether(athletes: Athlete[]) {
+    let order = 0;
+    const visitedEventOrder = {};
+
+    const matchedResults = this.getMatchedResults(athletes);
+    console.log(matchedResults);
+    matchedResults.forEach(r => {
+      if (!visitedEventOrder[r[0].event]) {
+        visitedEventOrder[r[0].event] = ++order;
+      }
+      console.log(visitedEventOrder);
+      for (let i = 0; i < athletes.length; ++i) {
+        this.setVisitedEvent(athletes[i], r[i], true, this.settings.showOrder ? visitedEventOrder[r[i].event] : null);
+      }
+    });
   }
 
-  setVisitedEvent(athlete: Athlete, result: Result, isPrimary: boolean) {
+  getMatchedResults(athletes: Athlete[]) {
+    if (athletes.length < 1) {
+      return [];
+    }
+
+    const matchedResults = [];
+
+    athletes[0].results.forEach(r => {
+      const matchedRuns = [];
+      athletes.forEach(a =>  {
+        const match = a.results.find(m => m.event === r.event && m.runNumber === r.runNumber);
+        if (match) {
+          matchedRuns.push(match);
+        }
+        else {
+          return;
+        }
+      });
+      if (matchedRuns.length === athletes.length) {
+        matchedResults.push(matchedRuns);
+      }
+    });
+    return matchedResults;
+  }
+
+  setVisitedMarkersForAthlete(athlete: Athlete, isPrimary: boolean) {
+    let order = 0;
+    const visitedEventOrder = {};
+    athlete.results.forEach(r => {
+      if (!visitedEventOrder[r.event]) {
+        visitedEventOrder[r.event] = ++order;
+      }
+      this.setVisitedEvent(athlete, r, isPrimary, this.settings.showOrder ? visitedEventOrder[r.event] : null);
+    });
+  }
+
+  setVisitedEvent(athlete: Athlete, result: Result, isPrimary: boolean, order: number) {
     if (this.mappedEvents) {
-      this.mappedEvents.filter(m => m.event.name === result.event).forEach(m => m.addVisit(athlete, result, isPrimary));
+      this.mappedEvents.filter(m => m.event.name === result.event).forEach(m => m.addVisit(athlete, result, isPrimary, order));
     }
   }
 
@@ -141,5 +208,24 @@ export class MapComponent implements OnInit {
 
   firstVisitOrder = (a: KeyValue<number, Visitor>, b: KeyValue<number, Visitor>): number => {
     return a.value.firstVisitDate() < b.value.firstVisitDate() ? -1 : (b.value.firstVisitDate() < a.value.firstVisitDate() ? 1 : 0);
+  }
+
+  showSettings() {
+    const dialogRef = this.dialog.open(MapSettingsDialogComponent, {
+      width: '250px',
+      data: this.settings
+    });
+
+    dialogRef.afterClosed().subscribe(settings => {
+      if (settings) {
+        this.applySettings(settings);
+      }
+    });
+  }
+
+  applySettings(settings: MapSettings) {
+    console.log(`Applying new map settings: ${settings}`);
+    this.settings = settings;
+    this.setVisitedMarkers();
   }
 }

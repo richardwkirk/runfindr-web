@@ -1,4 +1,5 @@
 import { Region, Event, AthleteKey, Athlete, Result } from './Parkrun';
+import { SafeMethodCall } from '@angular/compiler';
 
 export enum VisitType {
     NotVisited = 0,
@@ -51,6 +52,17 @@ export class MappedEvent {
     visitType: VisitType;
     priority = 1;
     visitors = {};
+    order: string = null;
+    label: any;
+
+    createLabel() {
+        if (this.order) {
+            this.label = {color: 'white', 'font-size': 'xx-small', 'font-weight': 'bold', text: this.order};
+        }
+        else {
+            this.label = null;
+        }
+    }
 
     setVisitSpecificAttributes() {
         if (this.visitType === (VisitType.Primary | VisitType.Secondary)) {
@@ -82,13 +94,19 @@ export class MappedEvent {
         this.visitType = VisitType.NotVisited;
         this.visited = false;
         this.visitors = [];
+        this.order = null;
+        this.label = null;
         this.setVisitSpecificAttributes();
     }
 
-    addVisit(athlete: Athlete, result: Result, isPrimary: boolean) {
+    addVisit(athlete: Athlete, result: Result, isPrimary: boolean, order?: number) {
         this.setVisited(isPrimary ? VisitType.Primary : VisitType.Secondary);
         if (!this.visitors.hasOwnProperty(athlete.id)) {
             this.visitors[athlete.id] = new Visitor(athlete);
+        }
+        if (isPrimary) {
+            this.order = order ? String(order) : null;
+            this.createLabel();
         }
         this.visitors[athlete.id].addResult(result);
     }

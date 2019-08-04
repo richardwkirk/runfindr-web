@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Map settings</h1>
+<div mat-dialog-content>
+  <mat-checkbox [(ngModel)]="settings.showOrder">Show Reverse Order</mat-checkbox>
+  <mat-checkbox [(ngModel)]="settings.showTogetherness">Show Togetherness</mat-checkbox>
+</div>
+<div class="btn-toolbar" mat-dialog-actions>
+  <button class="map-settings-btn btn btn-primary" mat-button [mat-dialog-close]="settings" cdkFocusInitial>Ok</button>
+  <button class="map-settings-btn btn btn-secondary" mat-button (click)="discard()">Discard</button>
+</div>
