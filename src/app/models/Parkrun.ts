@@ -41,6 +41,14 @@ export class Result {
     ageGrading: string;
 }
 
+export class Summary {
+    event: string;
+    runs: number;
+    bestGenderPosition: number;
+    bestPosition: number;
+    bestTime: string;
+}
+
 export class AthleteKey {
     name: string;
     id: number;
@@ -55,5 +63,6 @@ export class Athlete {
     name: string;
     id: number;
     results: Result[];
+    summaries: Summary[];
 }
 

@@ -82,6 +82,14 @@ export class Card {
 
         });
 
+        athlete.summaries.forEach((s) => {
+            if (s.bestGenderPosition < this.highestGenderPosition) {
+                this.highestGenderPosition = s.bestGenderPosition;
+                this.highestGenderPositionDetail = `Highest gender position of ${s.bestGenderPosition} achieved at ${s.event}`;
+            }
+        });
+
+
         this.pIndex = this.calculatePIndex();
         this.wilsonIndex = this.calculateWilsonIndex();
 
