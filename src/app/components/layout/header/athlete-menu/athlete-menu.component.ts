@@ -29,6 +29,9 @@ export class AthleteMenuComponent implements OnInit {
   ngOnInit() {
     this.layoutService.menuContext.subscribe(context => {
       this.showAthleteCompare = context != null ? context.indexOf(MenuContext.CompareAthletes) > -1 : false;
+      if (!this.showAthleteCompare) {
+        this.compareAthleteControl.setValue(false);
+      }
     });
 
     this.searchHistoryService.recentAthletes.subscribe(athletes => {

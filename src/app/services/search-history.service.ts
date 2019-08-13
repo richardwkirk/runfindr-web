@@ -15,7 +15,7 @@ export class SearchHistoryService {
   private recentAthletesSource = new BehaviorSubject<AthleteKey[]>([]);
   recentAthletes = this.recentAthletesSource.asObservable();
 
-  recentAthleteCount = 10;
+  recentAthleteCount = 25;
 
   constructor(@Inject(LOCAL_STORAGE) private storage: StorageService, private athleteService: AthleteService) {
     this.recentAthletesSource.next(this.storage.get(this.STORAGE_KEY) || []);

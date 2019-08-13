@@ -36,6 +36,7 @@ export class Result {
     date: string;
     runNumber: number;
     position: number;
+    genderPosition: number;
     time: string;
     ageGrading: string;
 }
