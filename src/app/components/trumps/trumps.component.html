@@ -1,6 +1,6 @@
 <div class="trumps-container">
   <div class="card-columns">
-    <div class="card bg-light mb-3" (dblclick)="this.removeCard(card.athlete.id)" *ngFor="let card of this.cards">
+    <div class="card bg-light mb-4" (dblclick)="this.removeCard(card.athlete.id)" *ngFor="let card of this.cards">
       <div class="card-image">
         <img class="card-img-top" (click)="this.selectImage(card)" [src]="card.imageDetails.imageUrl" [alt]="card.imageDetails.text">
         <button class="card-close-btn" (click)="this.removeCard(card.athlete.id)">x</button>

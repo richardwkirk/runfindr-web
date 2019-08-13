@@ -1,6 +1,4 @@
 import { Inject, Injectable } from '@angular/core';
-import { AthleteService } from 'src/app/services/athlete.service';
-import { Observable, BehaviorSubject } from 'rxjs';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { CardImageDetails } from '../models/Trumps';
 
@@ -19,30 +17,30 @@ export class ImageDetailsService {
 
   loadedImageDetails: { [athleteId: number]: CardImageDetails } = {};
 
-  constructor(@Inject(LOCAL_STORAGE) private storage: StorageService, private athleteService: AthleteService) {
+  constructor(@Inject(LOCAL_STORAGE) private storage: StorageService) {
     this.loadedImageDetails = this.storage.get(ImageDetailsService.STORAGE_KEY) || {};
   }
 
-  getImageDetails(athleteId: number): CardImageDetails {
+  public getAthleteImage(athleteId: number): CardImageDetails {
     if (this.loadedImageDetails.hasOwnProperty(athleteId)) {
       return this.loadedImageDetails[athleteId];
     }
     return ImageDetailsService.defaultImage;
   }
 
-  setImageDetails(athleteId: number, imageDetails: CardImageDetails) {
+  private setAthleteImage(athleteId: number, imageDetails: CardImageDetails) {
     this.loadedImageDetails[athleteId] = imageDetails;
     this.storage.set(ImageDetailsService.STORAGE_KEY, this.loadedImageDetails);
   }
 
-  removeImageDetails(athleteId: number) {
+  private removeAthleteImage(athleteId: number) {
     if (this.loadedImageDetails.hasOwnProperty(athleteId)) {
       delete this.loadedImageDetails[athleteId];
     }
     this.storage.set(ImageDetailsService.STORAGE_KEY, this.loadedImageDetails);
   }
 
-  setImageFromFacebookProfile(athleteId, profileId): CardImageDetails {
+  addFacebookImageForAthlete(athleteId, profileId): CardImageDetails {
     let imageDetails: CardImageDetails = ImageDetailsService.defaultImage;
     if (profileId) {
       imageDetails = {
@@ -50,11 +48,11 @@ export class ImageDetailsService {
         imageUrl: `https://graph.facebook.com/${profileId}/picture?type=large`,
         text: `Using facebook profile picture for ID ${profileId}`
       };
-      this.setImageDetails(athleteId, imageDetails);
+      this.setAthleteImage(athleteId, imageDetails);
     }
     else {
-      if (this.getImageDetails(athleteId).facebookId) {
-        this.removeImageDetails(athleteId);
+      if (this.getAthleteImage(athleteId).facebookId) {
+        this.removeAthleteImage(athleteId);
       }
     }
     return imageDetails;
