@@ -30,6 +30,7 @@ import { TrumpsInstructionsComponent } from './components/trumps/trumps-instruct
 import { TrumpsCardComponent } from './components/trumps/trumps-card/trumps-card.component';
 import { MapSettingsDialogComponent } from './components/map/settings/map-settings-dialog.component';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { MapSettingsDialogComponent } from './components/map/settings/map-settin
     MatInputModule,
     MatFormFieldModule,
     MatDialogModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    FontAwesomeModule
   ],
   exports: [
     MapSettingsDialogComponent

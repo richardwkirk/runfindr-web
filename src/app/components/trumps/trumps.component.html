@@ -3,7 +3,9 @@
     <div class="card bg-light mb-4" (dblclick)="this.removeCard(card.athlete.id)" *ngFor="let card of this.cards">
       <div class="card-image">
         <img class="card-img-top" (click)="this.selectImage(card)" [src]="card.imageDetails.imageUrl" [alt]="card.imageDetails.text">
-        <button class="card-close-btn" (click)="this.removeCard(card.athlete.id)">x</button>
+        <div class="card-close-btn" (click)="this.removeCard(card.athlete.id)">
+          <fa-icon [icon]="faClose"></fa-icon>
+        </div>
       </div>
       <div class="card-body">
         <h5 class="card-title">{{card.athlete.name}}</h5>

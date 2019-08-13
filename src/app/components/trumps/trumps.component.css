@@ -47,18 +47,13 @@
 
 .card-image .card-close-btn {
     position: absolute;
-    top: 25px;
-    right: 1px;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    background-color: #aaa;
+    top: 10px;
+    right: 5px;
+    transform: translate(-20%, -20%);
+    -ms-transform: translate(-20%, -20%);
     color: white;
-    font-size: 16px;
-    padding: 1px 10px 5px 8px;
     border: none;
     cursor: pointer;
-    border-radius: 5px;
-    font-weight: bold;
 }
 
 .trumps-barcode td {

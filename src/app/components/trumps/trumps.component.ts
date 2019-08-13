@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Athlete } from '../../models/Parkrun';
 import { Card } from '../../models/Trumps';
 import { LayoutService } from 'src/app/services/layout.service';
 import { MenuContext } from '../layout/LayoutOptions';
 import { TrumpsService } from 'src/app/services/trumps.service';
 import { AthleteService } from 'src/app/services/athlete.service';
+import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-trumps',
@@ -15,6 +15,8 @@ import { AthleteService } from 'src/app/services/athlete.service';
 export class TrumpsComponent implements OnInit, OnDestroy {
 
   cards: Card[] = [];
+
+  faClose = faWindowClose;
 
   constructor(private route: ActivatedRoute,
               private layoutService: LayoutService,
