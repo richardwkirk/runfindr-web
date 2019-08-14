@@ -55,3 +55,21 @@
 .trumps-barcode td {
     text-align: center;
 }
+
+.card-load-details {
+    position: absolute;
+    font-size: 10px;
+    text-align: center;
+    bottom: -12px;
+    color: #989898;
+    width: 100%;
+}
+
+.card-reload-button {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    border: none;
+    cursor: pointer;
+    color: #989898;
+}

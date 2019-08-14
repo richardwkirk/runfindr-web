@@ -32,6 +32,8 @@ export class Card {
 
     imageDetails: CardImageDetails;
 
+    loadDateTime: string;
+
     constructor() {}
 
 }

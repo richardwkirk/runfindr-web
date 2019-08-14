@@ -72,5 +72,12 @@
         </td></tr>
       </table>
     </div>
+
+    <div class="card-load-details">
+        <p>Loaded at {{ this.card.loadDateTime }}.</p>
+    </div>
+    <div class="card-reload-button" (click)="reload()">
+       <fa-icon [icon]="faReload"></fa-icon>
+    </div>    
   </div>
 

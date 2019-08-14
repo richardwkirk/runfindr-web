@@ -135,9 +135,10 @@ export class TrumpsService {
 
         card.imageDetails = ImageDetailsService.defaultImage;
 
+        card.loadDateTime = new Date().toLocaleString('en-GB');
+
         return card;
   }
-
 
   convertTime(time: string): Date {
     const seconds = parseInt(time.slice(-2), 10);

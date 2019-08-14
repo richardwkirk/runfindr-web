@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Card } from 'src/app/models/Trumps';
-import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import { faWindowClose, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 import { TrumpsService } from 'src/app/services/trumps.service';
+import { AthleteService } from 'src/app/services/athlete.service';
 
 @Component({
   selector: 'app-trumps-card',
@@ -15,10 +16,16 @@ export class TrumpsCardComponent implements OnInit {
   @Output() onCloseCard = new EventEmitter<Card>();
 
   faClose = faWindowClose;
+  faReload = faSyncAlt;
 
-  constructor(private trumpsService: TrumpsService) { }
+  constructor(private trumpsService: TrumpsService,
+              private athleteService: AthleteService) { }
 
   ngOnInit() {
+  }
+
+  reload() {
+    this.athleteService.loadAthlete(this.card.athlete.id, false);
   }
 
   closeCard() {
@@ -27,10 +34,11 @@ export class TrumpsCardComponent implements OnInit {
 
   selectImage() {
     const defaultText = 'Please use https://lookup-id.com/ too lookup facebook profile ids.';
-    const facebookId = window.prompt(`Please provide the facebook profile ID for ${card.athlete.name} (A${card.athlete.id})`,
+    const facebookId = window.prompt(`Please provide the facebook profile ID for ${this.card.athlete.name} (A${this.card.athlete.id})`,
                           this.card.imageDetails.facebookId || defaultText);
     if (facebookId !== null) {
       this.trumpsService.setImageFromFacebookProfile(this.card, facebookId);
     }
   }
+
 }
