@@ -1,3 +1,76 @@
-<p>
-  trumps-card works!
-</p>
+<div class="card bg-light mb-4">
+    <div class="card-image">
+      <img class="card-img-top" (click)="this.selectImage()" [src]="card.imageDetails.imageUrl" [alt]="card.imageDetails.text">
+      <div class="card-close-btn" (click)="this.closeCard()">
+        <fa-icon [icon]="faClose"></fa-icon>
+      </div>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{card.athlete.name}}</h5>
+      <table class="trump-values">
+
+        <tr class="trump-values-highlight">
+          <th>Runs</th>
+          <td>{{ card.runCount }}</td>
+          <th>Events</th>
+          <td>{{ card.eventCount }}</td>
+        </tr>
+        <tr>
+        </tr>
+                 
+        <tr class="trump-values-category">
+          <td colspan=2>Personal bests</td>
+          <td colspan=2>Run dates</td>
+        </tr>
+        <tr>
+          <th>Time</th>
+          <td title="{{ card.pbDetail }}">{{ card.pb }}</td>    
+          <th>First</th>
+          <td title="{{ card.firstRunDetail }}">{{ card.firstRun }}</td>
+        </tr>
+        <tr>
+          <th>Age Grading</th>
+          <td title="{{ card.ageGradingDetail }}">{{ card.ageGrading }}</td>    
+          <th>Latest</th>
+          <td title="{{ card.latestRunDetail }}">{{ card.latestRun }}</td>
+        </tr>  
+
+        <tr class="trump-values-category">
+          <td colspan=2>Positions</td>
+          <td colspan=2>Indices</td>
+        </tr>
+        <tr>
+          <th>Overall</th>
+          <td title="{{ card.highestPositionDetail }}">{{ card.highestPosition }}</td>
+          <th>p-index</th>
+          <td>{{ card.pIndex }}</td>
+        </tr>  
+        <tr>
+          <th>Gender</th>
+          <td title="{{ card.highestGenderPositionDetail }}">{{ card.highestGenderPosition }}</td>
+          <th>Wilson index</th>
+          <td>{{ card.wilsonIndex }}</td>
+        </tr>
+
+        <tr class="trumps-barcode"><td colspan=4 title="#DFYB">
+            <ngx-barcode
+            [bc-element-type]="svg" 
+            [bc-value]="card.barcodeId" 
+            [bc-format]="CODE128" 
+            [bc-width]="2" 
+            [bc-height]="30" 
+            [bc-display-value]="true" 
+            [bc-font-options]="" 
+            [bc-font]="'monospace'"
+            [bc-text-align]="'center'" 
+            [bc-text-position]="'bottom'"   
+            [bc-margin]="10" 
+            [bc-margin-top]="10" 
+            [bc-margin-bottom]="10" 
+            [bc-margin-left]="10" 
+            [bc-margin-right]="10"></ngx-barcode>      
+        </td></tr>
+      </table>
+    </div>
+  </div>
+

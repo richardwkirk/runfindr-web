@@ -1,0 +1,57 @@
+.card-title {
+    text-align: center;
+}
+
+.trump-values {
+    width: 100%;
+}
+
+.trump-values th {
+    font-style: italic;
+    font-weight: lighter;
+    font-size: 12px;
+    width: 20%;
+    text-align: right;
+}
+
+.trump-values td {
+    font-size: 14px;
+    width: 30%;
+    text-align: left;
+    padding-left: 5px;
+}
+
+.trump-values-highlight td {
+    font-size: 20px;
+    padding-left: 15px;    
+}
+
+.trump-values-category td {
+    font-style: normal;
+    text-transform: uppercase;
+    font-weight: lighter;
+    font-size: 10px;
+    text-align: center;
+    border-bottom: 1px solid grey;
+    padding-top: 10px;
+    margin: 25px;
+}
+
+.card-body {
+    width: 100%;
+}
+
+.card-image .card-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    transform: translate(-20%, -20%);
+    -ms-transform: translate(-20%, -20%);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.trumps-barcode td {
+    text-align: center;
+}

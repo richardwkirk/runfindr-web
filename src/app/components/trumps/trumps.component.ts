@@ -5,7 +5,6 @@ import { LayoutService } from 'src/app/services/layout.service';
 import { MenuContext } from '../layout/LayoutOptions';
 import { TrumpsService } from 'src/app/services/trumps.service';
 import { AthleteService } from 'src/app/services/athlete.service';
-import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-trumps',
@@ -15,8 +14,6 @@ import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 export class TrumpsComponent implements OnInit, OnDestroy {
 
   cards: Card[] = [];
-
-  faClose = faWindowClose;
 
   constructor(private route: ActivatedRoute,
               private layoutService: LayoutService,
@@ -43,14 +40,8 @@ export class TrumpsComponent implements OnInit, OnDestroy {
     this.trumpsService.stopListening();
   }
 
-  removeCard(athleteId) {
-    this.trumpsService.removeCard(athleteId);
+  removeCard(card: Card) {
+    this.trumpsService.removeCard(card.athlete.id);
   }
 
-  selectImage(card: Card) {
-    const defaultText = 'Please use https://lookup-id.com/ too lookup facebook profile ids.';
-    const facebookId = window.prompt(`Please provide the facebook profile ID for ${card.athlete.name} (A${card.athlete.id})`,
-                          card.imageDetails.facebookId || defaultText);
-    this.trumpsService.setImageFromFacebookProfile(card, facebookId);
-  }
 }
