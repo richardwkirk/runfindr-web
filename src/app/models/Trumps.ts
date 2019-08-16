@@ -1,4 +1,4 @@
-import { Athlete } from './Parkrun';
+import { Athlete } from './parkrun';
 
 export class CardImageDetails {
     facebookId?: string;
