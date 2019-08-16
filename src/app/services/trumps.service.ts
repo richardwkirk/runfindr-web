@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { Card, CardImageDetails } from '../models/Trumps';
-import { Athlete } from '../models/Parkrun';
+import { Athlete } from '../models/parkrun';
 import { ImageDetailsService } from './image-details.service';
 import { AthleteService } from './athlete.service';
 import { BehaviorSubject } from 'rxjs';

@@ -1,4 +1,4 @@
-import { Region, Event, AthleteKey, Athlete, Result } from './Parkrun';
+import { Event, AthleteKey, Athlete, Result, Country } from './parkrun';
 import { SafeMethodCall } from '@angular/compiler';
 
 export enum VisitType {
@@ -114,8 +114,8 @@ export class MappedEvent {
 
 export class MappedEventHelper {
 
-    static createMappedEvents(region: Region): MappedEvent[] {
-        return Region.allEvents(region).map(e => this.createEventMarker(e));
+    static createMappedEvents(country: Country): MappedEvent[] {
+        return country.events.map(e => this.createEventMarker(e));
     }
 
     static createEventMarker(e: Event): MappedEvent {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { AthleteKey } from '../../../../models/Parkrun';
+import { AthleteKey } from '../../../../models/parkrun/AthleteData';
 import { AthleteService } from 'src/app/services/athlete.service';
 import { SearchHistoryService } from 'src/app/services/search-history.service';
 import { MenuContext } from '../../LayoutOptions';

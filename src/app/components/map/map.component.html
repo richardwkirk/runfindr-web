@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <agm-map (mapReady)="mapReady($event)" [latitude]="initialLatitude" [longitude]="initialLongitude" [zoom]="initialZoom" >
+    <agm-map (mapReady)="mapReady($event)" [latitude]="initialLatitude" [longitude]="initialLongitude" [zoom]="initialZoom" [fitBounds]="bounds" >
       <agm-marker 
           [latitude]="mappedEvent.event.location.lat" 
           [longitude]="mappedEvent.event.location.long" 
@@ -11,7 +11,8 @@
           *ngFor="let mappedEvent of this.mappedEvents">
         <agm-info-window>
           <div>
-            <p><i>{{mappedEvent.event.name}}</i></p>
+            <p><i>{{mappedEvent.event.longName}}</i></p>
+            <p>{{mappedEvent.event.locationName}}</p>
             <li *ngFor="let visitorPair of mappedEvent.visitors | keyvalue: firstVisitOrder">
               {{visitorPair.value.athlete.name}} - {{visitorPair.value.visits.length}} visits since {{visitorPair.value.firstVisit()}} with PB {{visitorPair.value.pb()}}
             </li>

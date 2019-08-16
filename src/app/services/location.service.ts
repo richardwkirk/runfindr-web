@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Country, Region } from '../models/Parkrun';
+import { Country } from '../models/parkrun';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { RunfindrEnvironmentService } from './runfindr-environment.service';
 
@@ -9,8 +9,8 @@ import { RunfindrEnvironmentService } from './runfindr-environment.service';
 })
 export class LocationService {
 
-  private regionSource = new BehaviorSubject<Region>(null);
-  region = this.regionSource.asObservable();
+  private countrySource = new BehaviorSubject<Country>(null);
+  country = this.countrySource.asObservable();
 
   constructor(private runfindrEnvironmentService: RunfindrEnvironmentService, private http: HttpClient) { }
 
@@ -18,9 +18,9 @@ export class LocationService {
     return this.http.get<Country[]>(`${this.runfindrEnvironmentService.getApiUrl()}/countries`);
   }
 
-  selectRegion(region): void {
-    this.http.get<Region>(`${this.runfindrEnvironmentService.getApiUrl()}/locations/${region}`).subscribe(r => {
-      this.regionSource.next(r);
+  selectCountry(country): void {
+    this.http.get<Country>(`${this.runfindrEnvironmentService.getApiUrl()}/locations/${country}`).subscribe(r => {
+      this.countrySource.next(r);
     });
   }
 

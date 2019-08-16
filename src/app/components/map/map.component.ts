@@ -4,12 +4,13 @@ import { LocationService } from '../../services/location.service';
 import { AthleteService } from '../../services/athlete.service';
 import { LayoutService } from '../../services/layout.service';
 import { MappedEvent, MappedEventHelper, Visitor } from '../../models/RunfindrWeb';
-import { Region, Athlete, Result } from '../../models/Parkrun';
+import { Athlete, Result, Country } from '../../models/parkrun';
 import { KeyValue } from '@angular/common';
 import { MenuContext } from '../layout/LayoutOptions';
 import { MatDialog } from '@angular/material/dialog';
 import { MapSettings } from 'src/app/models/MapSettings';
 import { MapSettingsDialogComponent } from './settings/map-settings-dialog.component';
+import { LatLngBoundsLiteral } from '@agm/core';
 
 @Component({
   selector: 'app-map',
@@ -20,8 +21,8 @@ export class MapComponent implements OnInit {
 
   protected map: any;
 
-  selectedCountry = 'World';
-  selectedRegion: Region;
+  selectedCountryName = 'World';
+  selectedCountry: Country;
 
   mappedEvents: MappedEvent[] = [];
 
@@ -30,13 +31,12 @@ export class MapComponent implements OnInit {
 
   private settings: MapSettings;
 
+  bounds: LatLngBoundsLiteral | boolean = false;
+
   // Default location is bushy parkrun
   initialLatitude = 51.410992;
   initialLongitude = -0.335791;
   initialZoom = 2;
-
-  lat = 51.410992;
-  lng = -0.335791;
 
   constructor(private route: ActivatedRoute,
               private layoutService: LayoutService,
@@ -81,36 +81,37 @@ export class MapComponent implements OnInit {
       this.updateCompareAthletes(athletes);
     });
 
-    this.locationService.region.subscribe(region => {
-      this.selectedRegion = region;
+    this.locationService.country.subscribe(country => {
+      this.selectedCountry = country;
       this.updateMap();
     });
   }
 
   updateCountry(country: string) {
-    this.selectedCountry = country;
-    console.log(`Country set to ${this.selectedCountry}`);
-    this.locationService.selectRegion(country);
+    this.selectedCountryName = country;
+    console.log(`Country set to ${this.selectedCountryName}`);
+    this.locationService.selectCountry(this.selectedCountryName);
   }
 
   updateMap() {
-    if (this.map != null && this.selectedRegion != null) {
-      console.log(`Update map with new region data for ${this.selectedRegion.name}`);
 
-      // This should not be needed once we have all the markers
-      this.lat = this.selectedRegion.location.lat;
-      this.lng = this.selectedRegion.location.long;
-      console.log(`Showing ${this.selectedCountry} center as ${this.lat}/${this.lng}`);
+    if (this.map !== null && this.selectedCountry !== null) {
+      console.log(`Update map with new region data for ${this.selectedCountry.name}`);
 
-      if (this.map) {
-        if (this.selectedRegion.name !== 'World') {
-          this.map.panTo({ lat: this.selectedRegion.location.lat, lng: this.selectedRegion.location.long });
-        }
-        console.log(`Setting zoom to ${this.selectedRegion.location.zoom}`);
-        this.map.setZoom(Math.max(this.selectedRegion.location.zoom, 2));
+      if (this.selectedCountry.bounds) {
+        this.bounds = { 
+                east: this.selectedCountry.bounds.east,
+                north: this.selectedCountry.bounds.north,
+                south: this.selectedCountry.bounds.south,
+                west: this.selectedCountry.bounds.west
+              };
+      }
+      else {
+        this.map.panTo({ lat: this.initialLatitude, lng: this.initialLongitude });
+        this.map.setZoom(this.initialZoom);
       }
 
-      this.mappedEvents = MappedEventHelper.createMappedEvents(this.selectedRegion);
+      this.mappedEvents = MappedEventHelper.createMappedEvents(this.selectedCountry);
       this.setVisitedMarkers();
     }
   }
@@ -196,7 +197,7 @@ export class MapComponent implements OnInit {
 
   setVisitedEvent(athlete: Athlete, result: Result, isPrimary: boolean, order: number) {
     if (this.mappedEvents) {
-      this.mappedEvents.filter(m => m.event.name === result.event).forEach(m => m.addVisit(athlete, result, isPrimary, order));
+      this.mappedEvents.filter(m => m.event.shortName === result.event).forEach(m => m.addVisit(athlete, result, isPrimary, order));
     }
   }
 
