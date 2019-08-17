@@ -8,7 +8,8 @@ import { CardImageDetails } from '../models/Trumps';
 
 export class ImageDetailsService {
 
-  static defaultImage = {
+  public static defaultImage = {
+    rawInput: '',
     imageUrl: '/assets/runfindr_icon_hires2.png',
     text: 'No image selected.'
   };
@@ -28,34 +29,48 @@ export class ImageDetailsService {
     return ImageDetailsService.defaultImage;
   }
 
-  private setAthleteImage(athleteId: number, imageDetails: CardImageDetails) {
+  public setAthleteImage(athleteId: number, imageDetails: CardImageDetails) {
     this.loadedImageDetails[athleteId] = imageDetails;
     this.storage.set(ImageDetailsService.STORAGE_KEY, this.loadedImageDetails);
   }
 
-  private removeAthleteImage(athleteId: number) {
+  public removeAthleteImage(athleteId: number) {
     if (this.loadedImageDetails.hasOwnProperty(athleteId)) {
       delete this.loadedImageDetails[athleteId];
     }
     this.storage.set(ImageDetailsService.STORAGE_KEY, this.loadedImageDetails);
   }
 
-  addFacebookImageForAthlete(athleteId, profileId): CardImageDetails {
-    let imageDetails: CardImageDetails = ImageDetailsService.defaultImage;
+  public createImage(imageText: string): CardImageDetails {
+    if (Number.isInteger(+imageText)) {
+      return this.createFromFacebookProfile(+imageText);
+    }
+    else {
+      return this.createFromUrl(imageText);
+    }
+  }
+
+  private createFromFacebookProfile(profileId: number): CardImageDetails {
     if (profileId) {
-      imageDetails = {
+      return {
+        rawInput: profileId.toString(),
         facebookId: profileId,
         imageUrl: `https://graph.facebook.com/${profileId}/picture?type=large`,
         text: `Using facebook profile picture for ID ${profileId}`
       };
-      this.setAthleteImage(athleteId, imageDetails);
     }
-    else {
-      if (this.getAthleteImage(athleteId).facebookId) {
-        this.removeAthleteImage(athleteId);
-      }
+    return null;
+  }
+
+  private createFromUrl(url: string): CardImageDetails {
+    if (url) {
+      return {
+        rawInput: url,
+        imageUrl: url,
+        text: `Using url provided`
+      };
     }
-    return imageDetails;
+    return null;
   }
 
 }

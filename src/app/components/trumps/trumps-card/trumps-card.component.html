@@ -1,6 +1,8 @@
-<div class="card bg-light mb-4">
+<div id="card-{{card.athlete.id}}" class="card bg-light mb-4">
     <div class="card-image">
-      <img class="card-img-top" (click)="this.selectImage()" [src]="card.imageDetails.imageUrl" [alt]="card.imageDetails.text">
+      <img class="card-img-top" (click)="this.selectImage()" [src]="card.imageDetails.imageUrl" [alt]="card.imageDetails.text" 
+              (window:resize)="onReize($event)"
+              [ngStyle]="{'width': cardWidth, 'height': cardWidth}">
       <div class="card-close-btn" (click)="this.closeCard()">
         <fa-icon [icon]="faClose"></fa-icon>
       </div>

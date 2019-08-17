@@ -1,17 +1,20 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, QueryList, ViewChildren, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Card } from '../../models/Trumps';
 import { LayoutService } from 'src/app/services/layout.service';
 import { MenuContext } from '../layout/LayoutOptions';
 import { TrumpsService } from 'src/app/services/trumps.service';
 import { AthleteService } from 'src/app/services/athlete.service';
+import { TrumpsCardComponent } from './trumps-card/trumps-card.component';
 
 @Component({
   selector: 'app-trumps',
   templateUrl: './trumps.component.html',
   styleUrls: ['./trumps.component.css']
 })
-export class TrumpsComponent implements OnInit, OnDestroy {
+export class TrumpsComponent implements OnInit, OnDestroy, AfterViewInit {
+
+  @ViewChildren(TrumpsCardComponent) cardComponents !: QueryList<TrumpsCardComponent>;
 
   cards: Card[] = [];
 
@@ -34,6 +37,10 @@ export class TrumpsComponent implements OnInit, OnDestroy {
         this.athleteService.loadAthlete(params.athleteId, false);
       }
     });
+  }
+
+  ngAfterViewInit() {
+    this.cardComponents.forEach(c => c.resizeImages());
   }
 
   ngOnDestroy() {

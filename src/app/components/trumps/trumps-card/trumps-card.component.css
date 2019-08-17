@@ -1,3 +1,8 @@
+.card {
+    max-width: 400px;
+    min-width: 300px;
+}
+
 .card-title {
     text-align: center;
 }
@@ -50,6 +55,10 @@
     color: white;
     border: none;
     cursor: pointer;
+}
+
+.card-img-top {
+    object-fit: cover;
 }
 
 .trumps-barcode td {

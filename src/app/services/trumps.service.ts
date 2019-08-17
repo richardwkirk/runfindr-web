@@ -32,7 +32,11 @@ export class TrumpsService {
   }
 
   private loadCards() {
-    this.cardSource.next(this.storage.get(TrumpsService.STORAGE_KEY) || []);
+    const cards = this.storage.get(TrumpsService.STORAGE_KEY) || [];
+    for (const card of cards) {
+      card.imageDetails = this.imageDetailsService.getAthleteImage(card.athlete.id) || ImageDetailsService.defaultImage;
+    }
+    this.cardSource.next(cards);
   }
 
   private persistCards() {
@@ -173,9 +177,20 @@ export class TrumpsService {
     }
   }
 
-  setImageFromFacebookProfile(card: Card, profileId: string) {
-    const imageDetails = this.imageDetailsService.addFacebookImageForAthlete(card.athlete.id, profileId);
-    card.imageDetails = imageDetails;
+  setCardImage(card: Card, imageText: string) {
+    if (imageText) {
+      const imageDetails = this.imageDetailsService.createImage(imageText);
+      if (imageDetails !== null)
+      {
+        card.imageDetails = imageDetails;
+        this.imageDetailsService.setAthleteImage(card.athlete.id, imageDetails);
+      }
+    }
+    else {
+      card.imageDetails = ImageDetailsService.defaultImage;
+      this.imageDetailsService.removeAthleteImage(card.athlete.id);
+    }
+
   }
 
 }
