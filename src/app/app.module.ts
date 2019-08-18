@@ -32,6 +32,8 @@ import { MapSettingsDialogComponent } from './components/map/settings/map-settin
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
+import { NgMasonryGridModule } from 'ng-masonry-grid';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,7 +63,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatFormFieldModule,
     MatDialogModule,
     MatCheckboxModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgMasonryGridModule
   ],
   exports: [
     MapSettingsDialogComponent

@@ -53,7 +53,6 @@ export class TrumpsCardComponent implements OnInit, AfterContentChecked {
 
     const width = `${cardImageElement.offsetWidth}px`;
     if (this.cardWidth !== width) {
-      console.log(`Setting ${this.card.athlete.name} card width to ${width}`);
       this.cardWidth = width;
       this.ref.detectChanges();
     }

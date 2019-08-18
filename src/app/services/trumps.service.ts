@@ -57,12 +57,12 @@ export class TrumpsService {
     card.imageDetails = this.imageDetailsService.getAthleteImage(athlete.id);
 
     // Replace any exiting card
-    let newCards;
-    if (this.cardSource.value.find(c => c.athlete.id === athlete.id)) {
-      newCards = this.cardSource.value.map(c => c.athlete.id === athlete.id ? card : c);
+    let newCards = this.cardSource.value;
+    const existingIndex = this.cardSource.value.findIndex(c => c.athlete.id === athlete.id);
+    if (existingIndex >= 0) {
+      newCards[existingIndex] = card;
     }
     else {
-      newCards = this.cardSource.value;
       newCards.push(card);
     }
     this.cardSource.next(newCards);
