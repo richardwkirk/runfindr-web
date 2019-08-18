@@ -5,18 +5,14 @@ import { LayoutService } from 'src/app/services/layout.service';
 import { MenuContext } from '../layout/LayoutOptions';
 import { TrumpsService } from 'src/app/services/trumps.service';
 import { AthleteService } from 'src/app/services/athlete.service';
-import { TrumpsCardComponent } from './trumps-card/trumps-card.component';
 import { Masonry, MasonryGridItem } from 'ng-masonry-grid';
-import { callbackify } from 'util';
 
 @Component({
   selector: 'app-trumps',
   templateUrl: './trumps.component.html',
   styleUrls: ['./trumps.component.css']
 })
-export class TrumpsComponent implements OnInit, OnDestroy, AfterViewInit {
-
-  @ViewChildren(TrumpsCardComponent) cardComponents !: QueryList<TrumpsCardComponent>;
+export class TrumpsComponent implements OnInit, OnDestroy {
 
   cards: Card[] = [];
 
@@ -42,10 +38,6 @@ export class TrumpsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.athleteService.loadAthlete(params.athleteId, false);
       }
     });
-  }
-
-  ngAfterViewInit() {
-    this.cardComponents.forEach(c => c.resizeImages());
   }
 
   ngOnDestroy() {

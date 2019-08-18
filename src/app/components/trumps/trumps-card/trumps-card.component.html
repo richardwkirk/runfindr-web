@@ -1,9 +1,8 @@
-<div id="card-{{card.athlete.id}}" class="card bg-light mb-4">
+<div id="card-{{card.athlete.id}}" class="card bg-light mb-4" [ngStyle]="{ 'max-width': this.cardWidth, 'min-width': this.cardWidth }">
     <div class="card-image">
       <img class="card-img-top" (click)="this.selectImage()" [src]="card.imageDetails.imageUrl" [alt]="card.imageDetails.text" 
-              (window:resize)="onReize($event)"
               [ngStyle]="{'width': cardWidth, 'height': cardWidth}">
-      <div class="card-close-btn" (click)="this.closeCard()">
+      <div *ngIf="!printable" class="card-close-btn" (click)="this.closeCard()">
         <fa-icon [icon]="faClose"></fa-icon>
       </div>
     </div>
@@ -31,7 +30,7 @@
           <td title="{{ card.firstRunDetail }}">{{ card.firstRun }}</td>
         </tr>
         <tr>
-          <th>Age Grading</th>
+          <th>Age gr.</th>
           <td title="{{ card.ageGradingDetail }}">{{ card.ageGrading }}</td>    
           <th>Latest</th>
           <td title="{{ card.latestRunDetail }}">{{ card.latestRun }}</td>
@@ -50,7 +49,7 @@
         <tr>
           <th>Gender</th>
           <td title="{{ card.highestGenderPositionDetail }}">{{ card.highestGenderPosition }}</td>
-          <th>Wilson index</th>
+          <th>Wilson</th>
           <td>{{ card.wilsonIndex }}</td>
         </tr>
 
@@ -75,10 +74,10 @@
       </table>
     </div>
 
-    <div class="card-load-details">
+    <div *ngIf="!printable" class="card-load-details">
         <p>Loaded at {{ this.card.loadDateTime }}.</p>
     </div>
-    <div class="card-reload-button" (click)="reload()">
+    <div *ngIf="!printable" class="card-reload-button" (click)="reload()">
        <fa-icon [icon]="faReload"></fa-icon>
     </div>    
   </div>

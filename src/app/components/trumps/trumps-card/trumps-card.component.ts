@@ -9,7 +9,7 @@ import { AthleteService } from 'src/app/services/athlete.service';
   templateUrl: './trumps-card.component.html',
   styleUrls: ['./trumps-card.component.css']
 })
-export class TrumpsCardComponent implements OnInit, AfterContentChecked {
+export class TrumpsCardComponent implements OnInit {
 
   @Input() card: Card;
 
@@ -18,7 +18,9 @@ export class TrumpsCardComponent implements OnInit, AfterContentChecked {
   faClose = faWindowClose;
   faReload = faSyncAlt;
 
-  cardWidth = '300px';
+  @Input() cardWidth;
+
+  @Input() printable = false;
 
   constructor(private trumpsService: TrumpsService,
               private athleteService: AthleteService,
@@ -26,36 +28,6 @@ export class TrumpsCardComponent implements OnInit, AfterContentChecked {
               private ref: ChangeDetectorRef) { }
 
   ngOnInit() {
-  }
-
-  ngAfterContentChecked() {
-    this.resizeImages();
-  }
-
-  public onReize(event) {
-    this.resizeImages();
-  }
-
-  public resizeImages() {
-    if (!this.card || !this.card.athlete) {
-      return;
-    }
-
-    const cardElement = this.elementRef.nativeElement.querySelector(`#card-${this.card.athlete.id}`);
-    if (!cardElement) {
-      return;
-    }
-
-    const cardImageElement = cardElement.querySelector('.card-image');
-    if (!cardImageElement) {
-      return;
-    }
-
-    const width = `${cardImageElement.offsetWidth}px`;
-    if (this.cardWidth !== width) {
-      this.cardWidth = width;
-      this.ref.detectChanges();
-    }
   }
 
   reload() {

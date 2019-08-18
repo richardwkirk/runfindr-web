@@ -6,7 +6,7 @@
     [scrollAnimationOptions]="{ animationEffect: 'effect-4', minDuration : 0.4, maxDuration : 0.7 }"
     (onNgMasonryInit)="onNgMasonryInit($event)">
     <ng-masonry-grid-item id="{{'masonry-item-'+i}}" *ngFor="let card of this.cards; let i = index;"> 
-      <app-trumps-card [card]="card" (onCloseCard)="this.removeCard(card, i)"></app-trumps-card>
+      <app-trumps-card [card]="card" (onCloseCard)="this.removeCard(card, i)" [cardWidth]="'300px'" [printable]="false"></app-trumps-card>
     </ng-masonry-grid-item>
   </ng-masonry-grid>
   <app-trumps-instructions></app-trumps-instructions>

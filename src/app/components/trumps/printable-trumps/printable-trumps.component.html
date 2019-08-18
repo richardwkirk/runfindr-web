@@ -1,0 +1,5 @@
+<div class="card-columns">
+    <div *ngFor="let card of this.cards">
+        <app-trumps-card [card]="card" [cardWidth]="'320px'" [printable]="true"></app-trumps-card>
+    </div>
+</div>

@@ -33,6 +33,7 @@ import { MapSettingsDialogComponent } from './components/map/settings/map-settin
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { NgMasonryGridModule } from 'ng-masonry-grid';
+import { PrintableTrumpsComponent } from './components/trumps/printable-trumps/printable-trumps.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { NgMasonryGridModule } from 'ng-masonry-grid';
     TrumpsComponent,
     TrumpsInstructionsComponent,
     TrumpsCardComponent,
-    MapSettingsDialogComponent
+    MapSettingsDialogComponent,
+    PrintableTrumpsComponent
   ],
   imports: [
     BrowserModule,
