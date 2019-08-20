@@ -54,7 +54,6 @@ export class TrumpsService {
   private addCard(athlete: Athlete) {
     // Create the new card
     const card = this.createCard(athlete);
-    card.imageDetails = this.imageDetailsService.getAthleteImage(athlete.id);
 
     // Replace any exiting card
     const newCards = this.cardSource.value;
@@ -137,7 +136,7 @@ export class TrumpsService {
         card.pIndex = this.calculatePIndex(card);
         card.wilsonIndex = this.calculateWilsonIndex(card);
 
-        card.imageDetails = ImageDetailsService.defaultImage;
+        card.imageDetails = this.imageDetailsService.getAthleteImage(athlete.id);
 
         card.loadDateTime = new Date().toLocaleString('en-GB');
 
