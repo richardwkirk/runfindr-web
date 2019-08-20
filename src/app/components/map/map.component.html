@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="map-container container-fluid">
     <agm-map (mapReady)="mapReady($event)" [latitude]="initialLatitude" [longitude]="initialLongitude" [zoom]="initialZoom" [fitBounds]="bounds" >
       <agm-marker 
           [latitude]="mappedEvent.event.location.lat" 
@@ -22,5 +22,15 @@
         </agm-info-window>
       </agm-marker>
     </agm-map>
-    <button class="map-settings" (click)="this.showSettings()">Map Settings</button>
+    <div class="map-settings">
+        <fa-stack>
+            <fa-icon [styles]="{'color': '#eaaa00'}" [icon]="backIcon" stackItemSize="2x" (click)="this.showSettings()"></fa-icon>
+            <fa-icon [styles]="{'color': 'white'}" [icon]="settingsIcon" stackItemSize="1x" (click)="this.showSettings()"></fa-icon>
+        </fa-stack>
+        <br />
+        <fa-stack>
+            <fa-icon [styles]="{'color': '#eaaa00'}" [icon]="backIcon" stackItemSize="2x" (click)="this.showAthletes()"></fa-icon>
+            <fa-icon [styles]="{'color': 'white'}" [icon]="athletesIcon" stackItemSize="1x" (click)="this.showAthletes()"></fa-icon>
+        </fa-stack>
+    </div>
 </div>

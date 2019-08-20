@@ -1,22 +1,19 @@
 agm-map {
   border-top: 50px solid #fff;
   border-bottom: 20px solid #fff;
-  height : 85vh;
+  height : 88vh;
   width: 100%;
+}
+
+.map-container {
+  position: relative;
+  padding: 0px;
 }
 
 .map-settings {
   position: absolute;
-  top: 80px;
-  right: 1px;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  background-color: #aaa;
-  color: white;
-  font-size: 16px;
-  padding: 1px 10px 5px 8px;
-  border: none;
+  top: 30px;
+  right: 30px;
   cursor: pointer;
-  border-radius: 5px;
-  font-weight: bold;
 }
+

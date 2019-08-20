@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MapSettings } from 'src/app/models/MapSettings';
 import { MapSettingsDialogComponent } from './settings/map-settings-dialog.component';
 import { LatLngBoundsLiteral } from '@agm/core';
+import { faCog, faCircle, faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-map',
@@ -28,6 +29,10 @@ export class MapComponent implements OnInit {
 
   athlete: Athlete;
   compareAthletes: Athlete[];
+
+  settingsIcon = faCog;
+  backIcon = faCircle;
+  athletesIcon = faUser;
 
   private settings: MapSettings;
 
@@ -95,7 +100,7 @@ export class MapComponent implements OnInit {
 
   updateMap() {
 
-    if (this.map !== null && this.selectedCountry !== null) {
+    if (this.map && this.selectedCountry !== null) {
       console.log(`Update map with new region data for ${this.selectedCountry.name}`);
 
       if (this.selectedCountry.bounds) {
