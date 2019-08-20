@@ -58,7 +58,7 @@ export class TrumpsComponent implements OnInit, OnDestroy {
     if (this.masonry) {
       const cardMasonryElement = this.elementRef.nativeElement.querySelector(`#masonry-item-${masonryIndex}`);
       if (!cardMasonryElement) {
-        console.log(`Did not find #masonry-item-${masonryIndex} to remove.`)
+        console.log(`Did not find #masonry-item-${masonryIndex} to remove.`);
         return;
       }
 

@@ -1,0 +1,9 @@
+<div>
+  <p><i>{{mappedEvent.event.longName}}</i></p>
+  <p>{{mappedEvent.event.locationName}}</p>
+  <li *ngFor="let visitorPair of mappedEvent.visitors | keyvalue: firstVisitOrder">
+    {{visitorPair.value.athlete.name}} - {{visitorPair.value.visits.length}} visits since {{visitorPair.value.firstVisit()}} with PB {{visitorPair.value.pb()}}
+  </li>
+  <br />
+  <p><a href="{{mappedEvent.event.url}}" target='_parkrun'>Visit event website.</a></p>
+</div>

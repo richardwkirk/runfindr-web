@@ -1,36 +1,20 @@
 <div class="map-container container-fluid">
-    <agm-map (mapReady)="mapReady($event)" [latitude]="initialLatitude" [longitude]="initialLongitude" [zoom]="initialZoom" [fitBounds]="bounds" >
-      <agm-marker 
-          [latitude]="mappedEvent.event.location.lat" 
-          [longitude]="mappedEvent.event.location.long" 
-          [iconUrl]="mappedEvent.iconUrl" 
-          [title]="mappedEvent.event.name"
-          [zIndex]="mappedEvent.priority"
-          [label]="mappedEvent.label"
-          (markerClick)="eventSelected(mappedEvent)"
-          *ngFor="let mappedEvent of this.mappedEvents">
-        <agm-info-window>
-          <div>
-            <p><i>{{mappedEvent.event.longName}}</i></p>
-            <p>{{mappedEvent.event.locationName}}</p>
-            <li *ngFor="let visitorPair of mappedEvent.visitors | keyvalue: firstVisitOrder">
-              {{visitorPair.value.athlete.name}} - {{visitorPair.value.visits.length}} visits since {{visitorPair.value.firstVisit()}} with PB {{visitorPair.value.pb()}}
-            </li>
-            <br />
-            <p><a href="{{mappedEvent.event.url}}" target='_parkrun'>Visit event website.</a></p>
-          </div>
-        </agm-info-window>
-      </agm-marker>
-    </agm-map>
+    <app-agm-container [selectedCountry]="selectedCountry" [athlete]="athlete" [compareAthletes]="compareAthletes" [mapSettings]="settings"></app-agm-container>
     <div class="map-settings">
         <fa-stack>
             <fa-icon [styles]="{'color': '#eaaa00'}" [icon]="backIcon" stackItemSize="2x" (click)="this.showSettings()"></fa-icon>
             <fa-icon [styles]="{'color': 'white'}" [icon]="settingsIcon" stackItemSize="1x" (click)="this.showSettings()"></fa-icon>
         </fa-stack>
         <br />
-        <fa-stack>
-            <fa-icon [styles]="{'color': '#eaaa00'}" [icon]="backIcon" stackItemSize="2x" (click)="this.showAthletes()"></fa-icon>
-            <fa-icon [styles]="{'color': 'white'}" [icon]="athletesIcon" stackItemSize="1x" (click)="this.showAthletes()"></fa-icon>
+        <fa-stack *ngIf="athlete">
+            <fa-icon [styles]="{'color': '#eaaa00'}" [icon]="backIcon" stackItemSize="2x" (click)="this.showAthlete()"></fa-icon>
+            <fa-icon [styles]="{'color': 'white'}" [icon]="athletesIcon" stackItemSize="1x" (click)="this.showAthlete()"></fa-icon>
         </fa-stack>
     </div>
 </div>
+
+<ng-template #athleteOverlay>
+  <div class="example-dialog-content" cdkDrag cdkDragRootElement=".cdk-overlay-pane">
+    <app-map-athlete-overlay [athlete]="athlete" (closeOverlay)="this.closeAthlete()"></app-map-athlete-overlay>
+  </div>
+</ng-template>

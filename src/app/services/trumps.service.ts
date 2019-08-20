@@ -57,7 +57,7 @@ export class TrumpsService {
     card.imageDetails = this.imageDetailsService.getAthleteImage(athlete.id);
 
     // Replace any exiting card
-    let newCards = this.cardSource.value;
+    const newCards = this.cardSource.value;
     const existingIndex = this.cardSource.value.findIndex(c => c.athlete.id === athlete.id);
     if (existingIndex >= 0) {
       newCards[existingIndex] = card;
@@ -75,7 +75,7 @@ export class TrumpsService {
     this.persistCards();
   }
 
-  private createCard(athlete: Athlete): Card {
+  public createCard(athlete: Athlete): Card {
         const card = new Card();
 
         card.athlete = athlete;

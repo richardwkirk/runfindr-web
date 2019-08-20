@@ -74,10 +74,10 @@
       </table>
     </div>
 
-    <div *ngIf="!printable" class="card-load-details">
+    <div *ngIf="!printable && !overlay" class="card-load-details">
         <p>Loaded at {{ this.card.loadDateTime }}.</p>
     </div>
-    <div *ngIf="!printable" class="card-reload-button" (click)="reload()">
+    <div *ngIf="!printable && !overlay" class="card-reload-button" (click)="reload()">
        <fa-icon [icon]="faReload"></fa-icon>
     </div>    
   </div>
