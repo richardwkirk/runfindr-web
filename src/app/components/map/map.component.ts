@@ -28,7 +28,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   backIcon = faCircle;
   athletesIcon = faUser;
 
-  private settings: MapSettings;
+  settings: MapSettings;
 
   @ViewChild('athleteOverlay', {static: false}) _dialogTemplate: TemplateRef<any>;
 
