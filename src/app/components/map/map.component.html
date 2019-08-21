@@ -1,5 +1,5 @@
 <div class="map-container container-fluid">
-    <app-agm-container [selectedCountry]="selectedCountry" [athlete]="athlete" [compareAthletes]="compareAthletes" [mapSettings]="settings"></app-agm-container>
+    <app-agm-container #agmMap [selectedCountry]="selectedCountry" [athlete]="athlete" [compareAthletes]="compareAthletes" [mapSettings]="mapSettings"></app-agm-container>
     <div class="map-settings">
         <fa-stack>
             <fa-icon [styles]="{'color': '#eaaa00'}" [icon]="backIcon" stackItemSize="2x" (click)="this.showSettings()"></fa-icon>

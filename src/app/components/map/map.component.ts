@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, TemplateRef, ViewContainerRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, TemplateRef, ViewContainerRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LocationService } from '../../services/location.service';
 import { AthleteService } from '../../services/athlete.service';
@@ -11,6 +11,7 @@ import { MapSettingsDialogComponent } from './settings/map-settings-dialog.compo
 import { faCog, faCircle, faUser } from '@fortawesome/free-solid-svg-icons';
 import { OverlayRef, Overlay } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { AgmContainerComponent } from './agm/agm-container/agm-container.component';
 
 @Component({
   selector: 'app-map',
@@ -28,7 +29,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   backIcon = faCircle;
   athletesIcon = faUser;
 
-  settings: MapSettings;
+  mapSettings: MapSettings;
+
+  @ViewChild('agmMap', {static: false}) _agmMapComponent: AgmContainerComponent;
 
   @ViewChild('athleteOverlay', {static: false}) _dialogTemplate: TemplateRef<any>;
 
@@ -45,7 +48,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     layoutService.setMenuContext([MenuContext.Countries, MenuContext.Athletes, MenuContext.CompareAthletes]);
 
-    this.settings = {
+    this.mapSettings = {
       showOrder: false,
       showTogetherness: false
     };
@@ -104,7 +107,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   showSettings() {
     const dialogRef = this.dialog.open(MapSettingsDialogComponent, {
       width: '250px',
-      data: this.settings
+      data: this.mapSettings
     });
 
     dialogRef.afterClosed().subscribe(settings => {
@@ -129,7 +132,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   applySettings(settings: MapSettings) {
-    console.log(`Applying new map settings: ${settings}`);
-    this.settings = settings;
+    console.log(`Applying new map settings:`);
+    this.mapSettings = settings;
+    this._agmMapComponent.mapSettings = settings;
+    console.log(this.mapSettings);
   }
 }

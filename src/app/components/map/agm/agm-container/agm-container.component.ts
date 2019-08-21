@@ -47,6 +47,7 @@ export class AgmContainerComponent implements OnInit {
 
   @Input()
   set mapSettings(settings: MapSettings) {
+    console.log('Applying settings to map.');
     this._settings = settings;
     if (this.map) {
       this.setVisitedMarkers();
