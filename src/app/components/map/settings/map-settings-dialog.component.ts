@@ -10,7 +10,7 @@ import { LocationService } from 'src/app/services/location.service';
 })
 export class MapSettingsDialogComponent implements OnInit {
 
-  protected specialEvent = 'Special Event';
+  public specialEvent = 'Special Event';
 
   constructor(private locationService: LocationService,
               public dialogRef: MatDialogRef<MapSettingsDialogComponent>,
