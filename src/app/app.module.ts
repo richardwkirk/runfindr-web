@@ -41,6 +41,7 @@ import { MapAthleteOverlayComponent } from './components/map/athletes/map-athlet
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AgmContainerComponent } from './components/map/agm/agm-container/agm-container.component';
 import { MarkerInfoComponent } from './components/map/agm/marker-info/marker-info.component';
+import { AndroidPrivacyPolicyComponent } from './components/pages/android/android-privacy-policy/android-privacy-policy.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { MarkerInfoComponent } from './components/map/agm/marker-info/marker-inf
     PrintableTrumpsComponent,
     MapAthleteOverlayComponent,
     AgmContainerComponent,
-    MarkerInfoComponent
+    MarkerInfoComponent,
+    AndroidPrivacyPolicyComponent
   ],
   imports: [
     BrowserModule,
