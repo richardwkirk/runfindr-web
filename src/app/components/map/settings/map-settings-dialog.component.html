@@ -2,6 +2,12 @@
 <div mat-dialog-content>
   <mat-checkbox [(ngModel)]="settings.showOrder">Show Order</mat-checkbox>
   <mat-checkbox [(ngModel)]="settings.showTogetherness">Show Togetherness</mat-checkbox>
+  <label id="special-events-radio-group-label">Special Events</label>
+  <mat-radio-group [(ngModel)]="settings.specialEvent" aria-labelledby="special-events-radio-group-label">
+    <br /><mat-radio-button value="none">None</mat-radio-button>
+    <br /><mat-radio-button value="extra">{{specialEvent}}</mat-radio-button>
+    <br /><mat-radio-button value="newyear">New Year</mat-radio-button>
+  </mat-radio-group>
 </div>
 <div class="btn-toolbar" mat-dialog-actions>
   <button class="map-settings-btn btn btn-primary" mat-button [mat-dialog-close]="settings" cdkFocusInitial>Ok</button>

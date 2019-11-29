@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'map/:region', component: MapComponent },
   { path: 'map/:region/:athleteId', component: MapComponent },
   { path: 'map/:region/:athleteId/:compareId', component: MapComponent },
+  { path: 'special/:special/:region/:athleteId', component: MapComponent },
   { path: 'trumps', component: TrumpsComponent },
   { path: 'trumps/printable', component: PrintableTrumpsComponent },
   { path: 'trumps/:athleteId', component: TrumpsComponent },

@@ -5,5 +5,14 @@
     {{visitorPair.value.athlete.name}} - {{visitorPair.value.visits.length}} visits since {{visitorPair.value.firstVisit()}} with PB {{visitorPair.value.pb()}}
   </li>
   <br />
+  <div *ngIf="mappedEvent.event.specialEventTimes">
+    <p>Special events:<p>
+    <ul>
+      <li>{{country.specialEvent ? country.specialEvent : 'Extra'}} - {{mappedEvent.event.specialEventTimes.extra}}</li>
+      <li>New Year - {{mappedEvent.event.specialEventTimes.newyear}}</li>
+    </ul>
+     <br />
+  </div>
+  
   <p><a href="{{mappedEvent.event.url}}" target='_parkrun'>Visit event website.</a></p>
 </div>

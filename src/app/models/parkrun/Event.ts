@@ -1,4 +1,12 @@
-import { Location } from "./Location";
+import { Location } from './Location';
+
+export interface SpecialEventTimes {
+
+    extra: string;
+
+    newyear: string;
+
+}
 
 export interface Event {
 
@@ -16,4 +24,7 @@ export interface Event {
 
     url: string;
 
+    specialEventTimes?: SpecialEventTimes;
+
 }
+

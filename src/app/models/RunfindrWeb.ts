@@ -1,5 +1,5 @@
 import { Event, AthleteKey, Athlete, Result, Country } from './parkrun';
-import { SafeMethodCall } from '@angular/compiler';
+import { MapSettings } from './MapSettings';
 
 export enum VisitType {
     NotVisited = 0,
@@ -46,6 +46,7 @@ export class Visitor {
 }
 
 export class MappedEvent {
+
     event: Event;
     iconUrl = '/assets/event_balloon.png';
     visited: boolean;
@@ -54,6 +55,9 @@ export class MappedEvent {
     visitors = {};
     order: string = null;
     label: any;
+    hidden = false;
+
+    constructor(private mapSettings: MapSettings) {}
 
     createLabel() {
         if (this.order) {
@@ -65,6 +69,11 @@ export class MappedEvent {
     }
 
     setVisitSpecificAttributes() {
+        this.iconUrl = null;
+        if (this.event.specialEventTimes && this.mapSettings) {
+            this.handleSpecialEvents();
+        }
+
         if (this.visitType === (VisitType.Primary | VisitType.Secondary)) {
             this.iconUrl = '/assets/event_visited_both_balloon.png';
             this.priority = 9;
@@ -80,8 +89,41 @@ export class MappedEvent {
             this.priority = 5;
             return;
         }
-        this.iconUrl = '/assets/event_balloon.png';
-        this.priority = 1;
+
+        if (!this.iconUrl) {
+            this.iconUrl = '/assets/event_balloon.png';
+            this.priority = 1;
+        }
+    }
+
+    private handleSpecialEvents() {
+        let startTime = null;
+        switch (this.mapSettings.specialEvent)
+        {
+            case 'none':
+                return;
+            case 'extra':
+                startTime = this.event.specialEventTimes.extra;
+                break;
+            case 'newyear':
+                startTime = this.event.specialEventTimes.newyear;
+                break;
+        }
+
+        if (!startTime || startTime === 'None') {
+            this.hidden = true;
+        }
+        else if (startTime.length > 2) {
+            switch (startTime.substring(0, 2)) {
+                case '07':
+                case '08':
+                case '09':
+                case '10':
+                case '11':
+                    this.iconUrl = `/assets/event_balloon_special_${startTime.substring(0, 2)}.png`;
+                    this.priority = 30;
+            }
+        }
     }
 
     private setVisited(visitType: VisitType) {
@@ -96,6 +138,7 @@ export class MappedEvent {
         this.visitors = [];
         this.order = null;
         this.label = null;
+        this.hidden = false;
         this.setVisitSpecificAttributes();
     }
 
@@ -114,12 +157,12 @@ export class MappedEvent {
 
 export class MappedEventHelper {
 
-    static createMappedEvents(country: Country): MappedEvent[] {
-        return country.events.map(e => this.createEventMarker(e));
+    static createMappedEvents(country: Country, settings: MapSettings): MappedEvent[] {
+        return country.events.map(e => this.createEventMarker(e, settings));
     }
 
-    static createEventMarker(e: Event): MappedEvent {
-        const marker = new MappedEvent();
+    static createEventMarker(e: Event, settings: MapSettings): MappedEvent {
+        const marker = new MappedEvent(settings);
         marker.event = e;
         return marker;
     }

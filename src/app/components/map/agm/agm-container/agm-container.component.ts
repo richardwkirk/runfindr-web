@@ -95,9 +95,13 @@ export class AgmContainerComponent implements OnInit {
         this.map.setZoom(this.initialZoom);
       }
 
-      this.mappedEvents = MappedEventHelper.createMappedEvents(this.selectedCountry);
+      this.mappedEvents = MappedEventHelper.createMappedEvents(this.selectedCountry, this.mapSettings);
       this.setVisitedMarkers();
     }
+  }
+
+  visibleEvents() {
+    return this.mappedEvents.filter(e => !e.hidden);
   }
 
   setVisitedMarkers() {

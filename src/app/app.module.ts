@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule, MatFormFieldModule, MatDialogModule } from '@angular/material';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { HeaderComponent } from './components/layout/header/header.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
@@ -74,6 +75,7 @@ import { MarkerInfoComponent } from './components/map/agm/marker-info/marker-inf
     MatFormFieldModule,
     MatDialogModule,
     MatCheckboxModule,
+    MatRadioModule,
     FontAwesomeModule,
     NgMasonryGridModule,
     DragDropModule

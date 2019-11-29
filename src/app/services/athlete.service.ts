@@ -22,10 +22,12 @@ export class AthleteService {
   loadAthlete(athleteId: number, compare: boolean) {
     this.getAthlete(athleteId).subscribe(athlete => {
       console.log(`Athlete data recieved: ${athlete.name} (${athlete.id})`);
-      if (!compare) {
-        this.changeAthlete(athlete);
-      } else {
-        this.addCompareAthlete(athlete);
+      if (athlete.name !== '') {
+        if (!compare) {
+          this.changeAthlete(athlete);
+        } else {
+          this.addCompareAthlete(athlete);
+        }
       }
     });
   }

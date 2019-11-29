@@ -50,16 +50,34 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.mapSettings = {
       showOrder: false,
-      showTogetherness: false
+      showTogetherness: false,
+      specialEvent: 'none'
     };
   }
 
   ngOnInit() {
     this.route.params.subscribe( params => {
       if (params) {
+
+        if (params.special) {
+          switch (params.special.toLowerCase()) {
+            case 'extra':
+            case 'christmas':
+            case 'xmas':
+              this.mapSettings.specialEvent = 'extra';
+              break;
+            case 'newyear':
+            case 'nyd':
+              this.mapSettings.specialEvent = 'newyear';
+              break;
+          }
+          this.applySettings(this.mapSettings);
+        }
+
         const selectedCountryName = params.region ? params.region : 'World';
         console.log(`Country set to ${selectedCountryName}`);
         this.locationService.selectCountry(selectedCountryName);
+
         if (params.compareId) {
           this.athleteService.loadAthlete(params.athleteId, true);
           this.athleteService.loadAthlete(params.compareId, true);
@@ -67,6 +85,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         else if (params.athleteId) {
           this.athleteService.loadAthlete(params.athleteId, false);
         }
+
       }
     });
 
@@ -133,8 +152,15 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   applySettings(settings: MapSettings) {
     console.log(`Applying new map settings:`);
-    this.mapSettings = settings;
-    this._agmMapComponent.mapSettings = settings;
     console.log(this.mapSettings);
+
+    this.mapSettings = settings;
+    if (this._agmMapComponent) {
+      this._agmMapComponent.mapSettings = settings;
+    }
+
+    if (settings.specialEvent !== 'none') {
+      this.locationService.showSpecialEvents();
+    }
   }
 }

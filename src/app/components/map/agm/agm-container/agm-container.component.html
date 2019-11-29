@@ -1,5 +1,5 @@
 <agm-map (mapReady)="mapReady($event)" [latitude]="initialLatitude" [longitude]="initialLongitude" [zoom]="initialZoom" [fitBounds]="bounds" >
-  <agm-marker 
+  <agm-marker
       [latitude]="mappedEvent.event.location.lat" 
       [longitude]="mappedEvent.event.location.long" 
       [iconUrl]="mappedEvent.iconUrl" 
@@ -7,9 +7,9 @@
       [zIndex]="mappedEvent.priority"
       [label]="mappedEvent.label"
       (markerClick)="eventSelected(mappedEvent)"
-      *ngFor="let mappedEvent of this.mappedEvents">
+      *ngFor="let mappedEvent of this.visibleEvents()">
     <agm-info-window>
-      <app-marker-info [mappedEvent]="mappedEvent"></app-marker-info>
+      <app-marker-info [mappedEvent]="mappedEvent" [country]="_selectedCountry"></app-marker-info>
     </agm-info-window>
   </agm-marker>
 </agm-map>
