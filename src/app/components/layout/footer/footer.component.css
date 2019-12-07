@@ -1,8 +1,20 @@
 .footer {
   background-color: #eaaa00;
+  position: relative;
 }
 
 .footer > .container {
   padding-right: 15px;
   padding-left: 15px;
+}
+
+a {
+  color: #6c757d;
+}
+
+.help-button {
+  position: absolute;
+  top: 25px;
+  right: 60px;
+  cursor: pointer;
 }

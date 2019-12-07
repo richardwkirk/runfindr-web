@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LocationService } from '../../services/location.service';
 import { AthleteService } from '../../services/athlete.service';
 import { LayoutService } from '../../services/layout.service';
-import { Athlete, Result, Country } from '../../models/parkrun';
+import { Athlete, Country } from '../../models/parkrun';
 import { MenuContext } from '../layout/LayoutOptions';
 import { MatDialog } from '@angular/material/dialog';
 import { MapSettings } from 'src/app/models/MapSettings';

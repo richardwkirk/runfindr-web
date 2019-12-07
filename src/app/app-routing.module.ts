@@ -5,16 +5,19 @@ import { TrumpsComponent } from './components/trumps/trumps.component';
 import { WelcomeComponent } from './components/pages/welcome/welcome.component';
 import { AndroidPrivacyPolicyComponent } from './components/pages/android/android-privacy-policy/android-privacy-policy.component';
 import { PrintableTrumpsComponent } from './components/trumps/printable-trumps/printable-trumps.component';
+import { HelpComponent } from './components/pages/help/help.component';
 
 const routes: Routes = [
   { path: 'map/:region', component: MapComponent },
   { path: 'map/:region/:athleteId', component: MapComponent },
   { path: 'map/:region/:athleteId/:compareId', component: MapComponent },
   { path: 'special/:special/:region/:athleteId', component: MapComponent },
+  { path: 'special/:special/:region', component: MapComponent },
   { path: 'trumps', component: TrumpsComponent },
   { path: 'trumps/printable', component: PrintableTrumpsComponent },
   { path: 'trumps/:athleteId', component: TrumpsComponent },
   { path: '', component: WelcomeComponent },
+  { path: 'help', component: HelpComponent },
   { path: 'android', component: AndroidPrivacyPolicyComponent }
 ];
 

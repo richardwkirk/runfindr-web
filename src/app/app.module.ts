@@ -42,6 +42,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AgmContainerComponent } from './components/map/agm/agm-container/agm-container.component';
 import { MarkerInfoComponent } from './components/map/agm/marker-info/marker-info.component';
 import { AndroidPrivacyPolicyComponent } from './components/pages/android/android-privacy-policy/android-privacy-policy.component';
+import { HelpComponent } from './components/pages/help/help.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { AndroidPrivacyPolicyComponent } from './components/pages/android/androi
     MapAthleteOverlayComponent,
     AgmContainerComponent,
     MarkerInfoComponent,
-    AndroidPrivacyPolicyComponent
+    AndroidPrivacyPolicyComponent,
+    HelpComponent
   ],
   imports: [
     BrowserModule,

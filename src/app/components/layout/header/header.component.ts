@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuContext } from '../LayoutOptions';
 import { LayoutService } from 'src/app/services/layout.service';
+import { Icons } from '../Icons';
 
 @Component({
   selector: 'app-header',
@@ -11,6 +12,12 @@ export class HeaderComponent implements OnInit {
 
   showCountries = false;
   showAthletes = false;
+
+  worldIcon = Icons.World;
+  ukIcon = Icons.Uk;
+  trumpsIcon = Icons.Trumps;
+  christmasIcon = Icons.Christmas;
+  newYearIcon = Icons.NewYear;
 
   constructor(private layoutService: LayoutService) { }
 

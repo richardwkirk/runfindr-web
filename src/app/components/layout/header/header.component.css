@@ -27,9 +27,7 @@
       vertical-align: middle;
     }
 
-    #navbarHeader a:active,
-    #navbarHeader a:visited,
-    #navbarHeader a:hover {
+    #navbarHeader a {
       color: #ffffff;
       text-decoration: none;
     }

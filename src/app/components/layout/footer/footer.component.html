@@ -1,8 +1,12 @@
 <footer class="footer mt-auto py-3">
   <div class="container">
-    <span class="text-muted"
-      >Thank you for using runfindr.uk. This site is not associated with the
-      parkrun organisation.</span
-    >
+      <fa-icon class="help-button" [styles]="{'color': 'white'}" [icon]="helpIcon" stackItemSize="2x" (click)="this.showHelp()"></fa-icon>
   </div>
 </footer>
+
+
+<ng-template #helpOverlay>
+  <div class="example-dialog-content" cdkDrag cdkDragRootElement=".cdk-overlay-pane">
+      <app-help></app-help>
+  </div>
+</ng-template>

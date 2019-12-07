@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LayoutService } from 'src/app/services/layout.service';
 import { MenuContext } from '../../layout/LayoutOptions';
+import { Icons } from '../../layout/Icons';
 
 @Component({
   selector: 'app-welcome',
@@ -9,7 +10,13 @@ import { MenuContext } from '../../layout/LayoutOptions';
 })
 export class WelcomeComponent implements OnInit {
 
-  constructor(private layoutService: LayoutService) { 
+  worldIcon = Icons.World;
+  ukIcon = Icons.Uk;
+  trumpsIcon = Icons.Trumps;
+  christmasIcon = Icons.Christmas;
+  newYearIcon = Icons.NewYear;
+
+  constructor(private layoutService: LayoutService) {
     layoutService.setMenuContext([MenuContext.Countries]);
   }
 
