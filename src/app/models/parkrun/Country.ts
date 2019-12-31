@@ -1,5 +1,5 @@
-import { Event } from './Event';
-import { Location } from './Location';
+import { Event } from "./Event";
+import { Location } from "./Location";
 
 export interface Country {
 
@@ -8,6 +8,8 @@ export interface Country {
     countryCode: number;
 
     specialEvent?: string;
+
+    cancellationsLoaded: boolean;
 
     bounds?: {
         north: number,

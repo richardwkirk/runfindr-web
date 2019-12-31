@@ -49,6 +49,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     layoutService.setMenuContext([MenuContext.Countries, MenuContext.Athletes, MenuContext.CompareAthletes]);
 
     this.mapSettings = {
+      showCancellations: true,
       showOrder: false,
       showTogetherness: false,
       specialEvent: 'none'

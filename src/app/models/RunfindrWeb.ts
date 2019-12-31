@@ -77,17 +77,19 @@ export class MappedEvent {
         if (this.visitType === (VisitType.Primary | VisitType.Secondary)) {
             this.iconUrl = '/assets/event_visited_both_balloon.png';
             this.priority = 9;
-            return;
         }
-        if ((this.visitType & VisitType.Primary) !== 0) {
+        else if ((this.visitType & VisitType.Primary) !== 0) {
             this.iconUrl = '/assets/event_visited_balloon.png';
             this.priority = 9;
-            return;
         }
-        if ((this.visitType & VisitType.Secondary) !== 0) {
+        else if ((this.visitType & VisitType.Secondary) !== 0) {
             this.iconUrl = '/assets/event_visited_other_balloon.png';
             this.priority = 5;
-            return;
+        }
+
+        if (this.mapSettings.showCancellations && MappedEventHelper.isCancelled(this.event)) {
+            this.iconUrl = '/assets/event_cancelled_balloon.png';
+            this.priority = 2;
         }
 
         if (!this.iconUrl) {
@@ -172,6 +174,17 @@ export class MappedEventHelper {
             m.visitType = VisitType.NotVisited;
             m.clearVisits();
         });
+    }
+
+    static isCancelled(event: Event) {
+        if (event.cancellations && event.cancellations.length > 0) {
+            const nextWeekDate = new Date(new Date(Date.now()));
+            nextWeekDate.setDate(nextWeekDate.getDate() + 6);
+            if (new Date(Date.parse(event.cancellations[0].date)) <= nextWeekDate) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

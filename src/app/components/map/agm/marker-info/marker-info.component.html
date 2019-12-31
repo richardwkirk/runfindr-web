@@ -5,6 +5,15 @@
     {{visitorPair.value.athlete.name}} - {{visitorPair.value.visits.length}} visits since {{visitorPair.value.firstVisit()}} with PB {{visitorPair.value.pb()}}
   </li>
   <br />
+  <div *ngIf="mappedEvent.event.cancellations" class="cancellations">
+    <p>Cancellations:<p>
+    <ul>
+      <li *ngFor="let cancellation of mappedEvent.event.cancellations">
+        {{cancellation.date}} - {{cancellation.reason}}
+      </li>
+    </ul>
+     <br />
+  </div>
   <div *ngIf="mappedEvent.event.specialEventTimes">
     <p>Special events:<p>
     <ul>

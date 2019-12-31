@@ -1,5 +1,6 @@
 <h1 mat-dialog-title>Map settings</h1>
 <div mat-dialog-content>
+  <mat-checkbox [(ngModel)]="settings.showCancellations">Show Cancellations</mat-checkbox>
   <mat-checkbox [(ngModel)]="settings.showOrder">Show Order</mat-checkbox>
   <mat-checkbox [(ngModel)]="settings.showTogetherness">Show Togetherness</mat-checkbox>
   <label id="special-events-radio-group-label">Special Events</label>
