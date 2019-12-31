@@ -23,5 +23,8 @@
      <br />
   </div>
   
-  <p><a href="{{mappedEvent.event.url}}" target='_parkrun'>Visit event website.</a></p>
+  <p><a href="{{mappedEvent.event.url}}" target='_parkrun'>Event website</a>
+      - <a href="{{mappedEvent.event.url}}/course" target='_parkrun'>Course</a> 
+      - <a href="{{mappedEvent.event.url}}/results" target='_parkrun'>Results</a></p>
+  <p><a href="https://www.google.com/maps?daddr={{mappedEvent.event.location.lat}},{{mappedEvent.event.location.long}}" target="_new">Navigate to start.</a></p>
 </div>
