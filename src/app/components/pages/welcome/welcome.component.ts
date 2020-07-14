@@ -22,7 +22,7 @@ export class WelcomeComponent implements OnInit {
   signOutIcon = Icons.SignOut;
 
   constructor(private layoutService: LayoutService,
-              private auth: AuthService) {
+              public auth: AuthService) {
     layoutService.setMenuContext([MenuContext.Countries]);
   }
 
