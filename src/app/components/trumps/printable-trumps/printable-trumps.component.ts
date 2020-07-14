@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Card } from '../../../models/Trumps';
 import { LayoutService } from 'src/app/services/layout.service';
 import { MenuContext } from '../../layout/LayoutOptions';
-import { TrumpsService } from 'src/app/services/trumps.service';
-import { AthleteService } from 'src/app/services/athlete.service';
+import { TrumpsService } from 'src/app/services/parkrun/trumps.service';
+import { AthleteService } from 'src/app/services/parkrun/athlete.service';
 import { TrumpsCardComponent } from '../trumps-card/trumps-card.component';
 import { Masonry, MasonryGridItem } from 'ng-masonry-grid';
 

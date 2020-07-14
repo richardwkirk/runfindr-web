@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, Input, Output, EventEmitter } from '@angular/core';
 import { Card } from 'src/app/models/Trumps';
-import { TrumpsService } from 'src/app/services/trumps.service';
+import { TrumpsService } from 'src/app/services/parkrun/trumps.service';
 import { Athlete } from 'src/app/models/parkrun';
 
 @Component({

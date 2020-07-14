@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
-import { AthleteKey } from '../models/parkrun';
-import { AthleteService } from 'src/app/services/athlete.service';
+import { AthleteKey } from '../../models/parkrun';
+import { AthleteService } from 'src/app/services/parkrun/athlete.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 

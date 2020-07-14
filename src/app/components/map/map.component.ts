@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, TemplateRef, ViewContainerRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LocationService } from '../../services/location.service';
-import { AthleteService } from '../../services/athlete.service';
+import { LocationService } from '../../services/parkrun/location.service';
+import { AthleteService } from '../../services/parkrun/athlete.service';
 import { LayoutService } from '../../services/layout.service';
 import { Athlete, Country } from '../../models/parkrun';
 import { MenuContext } from '../layout/LayoutOptions';

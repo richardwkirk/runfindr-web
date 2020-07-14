@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Country } from '../models/parkrun';
+import { Country } from '../../models/parkrun';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { RunfindrEnvironmentService } from './runfindr-environment.service';
+import { RunfindrEnvironmentService } from '../runfindr-environment.service';
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
-import { CardImageDetails } from '../models/Trumps';
+import { CardImageDetails } from '../../models/Trumps';
 
 @Injectable({
   providedIn: 'root'

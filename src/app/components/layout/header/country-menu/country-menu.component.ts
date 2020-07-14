@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Country } from '../../../../models/parkrun';
-import { LocationService} from '../../../../services/location.service';
+import { LocationService} from '../../../../services/parkrun/location.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

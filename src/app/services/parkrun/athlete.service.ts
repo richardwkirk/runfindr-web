@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Athlete } from '../models/parkrun';
+import { Athlete } from '../../models/parkrun';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { RunfindrEnvironmentService } from './runfindr-environment.service';
-import { LayoutService } from './layout.service';
-import { MenuContext } from '../components/layout/LayoutOptions';
+import { RunfindrEnvironmentService } from '../runfindr-environment.service';
+import { LayoutService } from '../layout.service';
+import { MenuContext } from '../../components/layout/LayoutOptions';
 
 @Injectable({
   providedIn: 'root'

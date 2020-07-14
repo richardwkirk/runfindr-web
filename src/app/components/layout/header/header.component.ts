@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuContext } from '../LayoutOptions';
 import { LayoutService } from 'src/app/services/layout.service';
 import { Icons } from '../Icons';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -19,7 +20,8 @@ export class HeaderComponent implements OnInit {
   christmasIcon = Icons.Christmas;
   newYearIcon = Icons.NewYear;
 
-  constructor(private layoutService: LayoutService) { }
+  constructor(private layoutService: LayoutService,
+              public auth: AuthService) { }
 
   ngOnInit() {
     this.layoutService.menuContext.subscribe(context => {

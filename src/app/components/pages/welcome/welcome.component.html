@@ -1,19 +1,23 @@
 <div class="jumbotron">
   <div class="container">
-      <h1>Welcome to runfindr.uk</h1>
-      <p>This site helps you to explore the <a href="https://www.parkrun.com/">parkrun</a> world to see where you will go for your next run.</p>
-      <a class="btn btn-primary btn-lg" href="/map/World" role="button"><fa-icon [styles]="{'color': 'white'}" [icon]="worldIcon"></fa-icon>&nbsp;Explore World &raquo;</a>
-      &nbsp;
-      <a class="btn btn-primary btn-lg" href="/map/UK" role="button"><fa-icon [styles]="{'color': 'white'}" [icon]="ukIcon"></fa-icon>&nbsp;Explore UK &raquo;</a>
-      <hr>
-      <p>Want to compare runners in a fun way? Why not create some trump cards?</p>
-      <a class="btn btn-primary btn-lg" href="/trumps" role="button"><fa-icon [styles]="{'color': 'white'}" [icon]="trumpsIcon"></fa-icon>&nbsp;Runner Trumps &raquo;</a>
-      <hr>
-      <p>Looking for a special event in the UK?</p>
-      <a class="btn btn-primary btn-lg" href="/special/christmas/UK" role="button"><fa-icon [styles]="{'color': 'white'}" [icon]="christmasIcon"></fa-icon>&nbsp;Christmas &raquo;</a>
-      &nbsp;
-      <a class="btn btn-primary btn-lg" href="/special/newyear/UK" role="button"><fa-icon [styles]="{'color': 'white'}" [icon]="newYearIcon"></fa-icon>&nbsp;New Year &raquo;</a>
+      <h1>
+        Welcome to runfindr.uk
+        <small class="text-muted">
+          <br /><fa-icon [icon]="worldIcon"></fa-icon>&nbsp;Explore the running world.
+          <br /><fa-icon [icon]="runningIcon"></fa-icon>&nbsp;Search for places to run and people to run with.
+        </small>
+      </h1>
       <br />
-      <p>To see special events for other countries, navigate to the country and select the event from the settings.</p>
+      <div *ngIf="!auth.loggedIn">
+        <a class="btn btn-primary btn-lg" href="" role="button" button (click)="auth.login()"><fa-icon [styles]="{'color': 'white'}" [icon]="signInIcon"></fa-icon>&nbsp;Log In</a>
+      </div>
+      <div *ngIf="auth.loggedIn">
+        <a class="btn btn-primary btn-lg" routerLink="profile" role="button" button *ngIf="auth.loggedIn"><fa-icon [styles]="{'color': 'white'}" [icon]="userIcon"></fa-icon>&nbsp;Profile &raquo;</a>
+        &nbsp;
+        <a class="btn btn-primary btn-lg" routerLink="parkrun" role="button" button *ngIf="auth.loggedIn"><fa-icon [styles]="{'color': 'white'}" [icon]="runningIcon"></fa-icon>&nbsp;parkrun &raquo;</a>
+        <br /><br />
+        <a class="btn btn-primary btn-lg" href="" role="button" button (click)="auth.logout()" *ngIf="auth.loggedIn"><fa-icon [styles]="{'color': 'white'}" [icon]="signOutIcon"></fa-icon>&nbsp;Log Out</a>
+      </div>
+      
   </div>
 </div>

@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { Card } from 'src/app/models/Trumps';
 import { faWindowClose, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
-import { TrumpsService } from 'src/app/services/trumps.service';
-import { AthleteService } from 'src/app/services/athlete.service';
+import { TrumpsService } from 'src/app/services/parkrun/trumps.service';
+import { AthleteService } from 'src/app/services/parkrun/athlete.service';
 
 @Component({
   selector: 'app-trumps-card',

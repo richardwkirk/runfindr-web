@@ -43,6 +43,8 @@ import { AgmContainerComponent } from './components/map/agm/agm-container/agm-co
 import { MarkerInfoComponent } from './components/map/agm/marker-info/marker-info.component';
 import { AndroidPrivacyPolicyComponent } from './components/pages/android/android-privacy-policy/android-privacy-policy.component';
 import { HelpComponent } from './components/pages/help/help.component';
+import { ParkrunComponent } from './components/pages/welcome/parkrun/parkrun.component';
+import { ProfileComponent } from './components/pages/users/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,9 @@ import { HelpComponent } from './components/pages/help/help.component';
     AgmContainerComponent,
     MarkerInfoComponent,
     AndroidPrivacyPolicyComponent,
-    HelpComponent
+    HelpComponent,
+    ParkrunComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

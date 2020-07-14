@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild, TemplateRef, ViewContainer
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { OverlayRef, Overlay } from '@angular/cdk/overlay';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-footer',
@@ -18,7 +19,8 @@ export class FooterComponent implements OnInit, AfterViewInit {
   @ViewChild('helpOverlay', {static: false}) _dialogTemplate: TemplateRef<any>;
 
   constructor(private _overlay: Overlay,
-              private _viewContainerRef: ViewContainerRef) { }
+              private _viewContainerRef: ViewContainerRef,
+              private _auth: AuthService) { }
 
   ngOnInit() {
   }

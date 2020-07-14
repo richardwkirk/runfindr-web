@@ -30,7 +30,7 @@ export class RunfindrEnvironmentService {
     } else {
       this.envSource.next(localEnvironment);
       console.log(`Using local runfindr environment settings...`);
-      console.log(this.envSource.value);
+      //console.log(this.envSource.value);
     }
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LayoutService } from 'src/app/services/layout.service';
 import { MenuContext } from '../../layout/LayoutOptions';
 import { Icons } from '../../layout/Icons';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-welcome',
@@ -15,8 +16,13 @@ export class WelcomeComponent implements OnInit {
   trumpsIcon = Icons.Trumps;
   christmasIcon = Icons.Christmas;
   newYearIcon = Icons.NewYear;
+  userIcon = Icons.User;
+  runningIcon = Icons.Running;
+  signInIcon = Icons.SignIn;
+  signOutIcon = Icons.SignOut;
 
-  constructor(private layoutService: LayoutService) {
+  constructor(private layoutService: LayoutService,
+              private auth: AuthService) {
     layoutService.setMenuContext([MenuContext.Countries]);
   }
 

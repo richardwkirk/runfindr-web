@@ -6,6 +6,8 @@ import { WelcomeComponent } from './components/pages/welcome/welcome.component';
 import { AndroidPrivacyPolicyComponent } from './components/pages/android/android-privacy-policy/android-privacy-policy.component';
 import { PrintableTrumpsComponent } from './components/trumps/printable-trumps/printable-trumps.component';
 import { HelpComponent } from './components/pages/help/help.component';
+import { ProfileComponent } from './components/pages/users/profile/profile.component';
+import { ParkrunComponent } from './components/pages/welcome/parkrun/parkrun.component';
 
 const routes: Routes = [
   { path: 'map/:region', component: MapComponent },
@@ -16,9 +18,11 @@ const routes: Routes = [
   { path: 'trumps', component: TrumpsComponent },
   { path: 'trumps/printable', component: PrintableTrumpsComponent },
   { path: 'trumps/:athleteId', component: TrumpsComponent },
+  { path: 'parkrun', component: ParkrunComponent },
   { path: '', component: WelcomeComponent },
   { path: 'help', component: HelpComponent },
-  { path: 'android', component: AndroidPrivacyPolicyComponent }
+  { path: 'android', component: AndroidPrivacyPolicyComponent },
+  { path: 'profile', component: ProfileComponent },
 ];
 
 @NgModule({
