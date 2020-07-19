@@ -4,16 +4,18 @@ import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { from, of, Observable, BehaviorSubject, combineLatest, throwError } from 'rxjs';
 import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { RunfindrEnvironmentService } from './runfindr-environment.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
   // Create an observable of Auth0 instance of client
   auth0Client$ = (from(
     createAuth0Client({
-      domain: "runfindr-dev.eu.auth0.com",
-      client_id: "7oLEBCCkgyguLp7IQhBOMsCNyR54m90E",
+      domain: this.environmentService.getAuth0Details().domain,
+      client_id: this.environmentService.getAuth0Details().clientId,
       redirect_uri: `${window.location.origin}`
     })
   ) as Observable<Auth0Client>).pipe(
@@ -37,7 +39,8 @@ export class AuthService {
   // Create a local property for login status
   loggedIn: boolean = null;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private environmentService: RunfindrEnvironmentService) {
     // On initial load, check authentication state with authorization server
     // Set up local auth streams if user is already authenticated
     this.localAuthSetup();
@@ -117,7 +120,7 @@ export class AuthService {
     this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log out
       client.logout({
-        client_id: "7oLEBCCkgyguLp7IQhBOMsCNyR54m90E",
+        client_id: this.environmentService.getAuth0Details().clientId,
         returnTo: `${window.location.origin}`
       });
     });

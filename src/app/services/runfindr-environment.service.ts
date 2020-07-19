@@ -60,4 +60,16 @@ export class RunfindrEnvironmentService {
       return null;
     }
   }
+
+  getAuth0Details() {
+    if (this.envSource.value) {
+      return {
+        domain: this.envSource.value.auth0Domain,
+        clientId: this.envSource.value.auth0ClientId
+      }
+    } else {
+      console.error('ERROR: runfindr environment has not been loaded when requesting Google API key.');
+      return null;
+    }
+  }
 }

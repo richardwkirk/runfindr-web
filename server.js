@@ -11,6 +11,8 @@ app.get('/env', function(req, res) {
       environmentUrl: null,
       serverUrl: process.env.RUNFINDR_SERVER_URL || 'http://SERVER_URL_NOT_CONFIGURED',
       googleApiKey: process.env.GOOGLE_API_KEY || 'API_KEY_NOT_CONFIGURED',
+      auth0Domain: process.env.AUTH0_DOMAIN || 'AUTH0_NOT_CONFIGURED',
+      auth0ClientId: process.env.AUTH0_CLIENTID || 'AUTH0_NOT_CONFIGURED',
     });
 });
 
