@@ -1,4 +1,6 @@
-export interface UserProfile {
+import { RunfindrDomainObject } from './RunfindrDomainObject';
+
+export interface UserProfile extends RunfindrDomainObject {
 
     user_id: string;
 
@@ -11,5 +13,9 @@ export interface UserProfile {
     picture: string;
 
     parkrun_enabled: boolean;
+
+    cdt: string;
+
+    udt: string;
 
 }

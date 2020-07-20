@@ -1,3 +1,30 @@
-<pre *ngIf="auth.userProfile$ | async as profile">
-  <code>{{ profile | json }}</code>
-</pre>
+<div class="container">
+  <div *ngIf="userProfile">
+    <pre>
+      <table class="table">
+        <tr>
+          <td>Picture</td>
+          <td><img class="profile-pic" src="{{ userProfile.picture }}" /></td>
+        </tr>
+        <tr>
+          <td>Name</td>
+          <td>{{ userProfile.given_name }} {{ userProfile.family_name }}</td>
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td>{{ userProfile.email }}</td>
+        </tr>   
+      </table>
+    </pre>
+    <a class="btn btn-primary btn-lg" routerLink="/" role="button"><fa-icon [styles]="{'color': 'white'}" [icon]="runningIcon"></fa-icon>&nbsp;Return home &raquo;</a>
+  </div>
+
+  <br />
+  <div class="alert alert-warning" role="alert" *ngIf="!userProfile">
+    No user profile was found. Please check you are logged in.
+    <br />
+    <br />
+    <a class="btn btn-primary btn-lg" routerLink="/" role="button"><fa-icon [styles]="{'color': 'white'}" [icon]="runningIcon"></fa-icon>&nbsp;Return home &raquo;</a>
+  </div>
+  <br />
+</div>

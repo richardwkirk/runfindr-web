@@ -3,6 +3,7 @@ import { LayoutService } from 'src/app/services/layout.service';
 import { MenuContext } from '../../layout/LayoutOptions';
 import { Icons } from '../../layout/Icons';
 import { AuthService } from 'src/app/services/auth.service';
+import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'app-welcome',
@@ -22,7 +23,8 @@ export class WelcomeComponent implements OnInit {
   signOutIcon = Icons.SignOut;
 
   constructor(private layoutService: LayoutService,
-              public auth: AuthService) {
+              public auth: AuthService,
+              public profileService: ProfileService) {
     layoutService.setMenuContext([MenuContext.Countries]);
   }
 

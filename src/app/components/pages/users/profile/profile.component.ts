@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
+import { ProfileService } from 'src/app/services/profile.service';
+import { Icons } from 'src/app/components/layout/Icons';
+import { UserProfile } from 'src/app/models/UserProfile';
 
 @Component({
   selector: 'app-profile',
@@ -8,7 +10,15 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(public auth: AuthService) { }
+  runningIcon = Icons.Running;
+
+  userProfile: UserProfile;
+
+  constructor(public profileService: ProfileService) { 
+    this.profileService.userProfile.subscribe((userProfile) => {
+      this.userProfile = userProfile;
+    });
+  }
 
   ngOnInit() {
   }

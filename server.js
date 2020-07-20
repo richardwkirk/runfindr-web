@@ -3,9 +3,17 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
+function corsMiddleware(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+}
+
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(corsMiddleware);
 
 // Serve static files
 app.use(express.static(__dirname + '/dist/runfindr-web'));
@@ -43,13 +51,32 @@ app.get('/api/user/:user_id', function(req, res) {
       res.json(data.Item);
     }
   });
-
 });
 
-app.post('/api/user', function(req, res) {
-  console.log(req.body);
-  console.log('Sorry, not implemented the user post request yet!');
-  res.status(501).json('User post not implemented.');
+app.put('/api/user/:user_id', function(req, res) {
+  if (!req.body) {
+    console.error('Misisng body from user profile write request.');
+  }
+
+  console.log(`Writing user profile: ${req.body.user_id}`);
+
+  const aws = require('aws-sdk');
+  aws.config.update({region: 'eu-west-1'});
+  const docClient = new aws.DynamoDB.DocumentClient();
+  const params = {
+    TableName: 'runfindr-dev',
+    Item: req.body
+  };
+  
+  docClient.put(params, function(err, data) {
+    if (err) {
+      console.log("Failed to write to dynamo db:", err);
+      res.status(500).json(err);
+    } else {
+      res.json(data.Item);
+    }
+  });
+
 });
 
 // Send all requests to index.html
