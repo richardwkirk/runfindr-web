@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TrumpsService } from './trump-service.service';
+import { TrumpsService } from './trumps.service';
 
 describe('TrumpsService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

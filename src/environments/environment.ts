@@ -7,6 +7,7 @@ export const environment = {
   runfindr: {
     environmentUrl: null,
     serverUrl: 'http://localhost:5000',
+    localApiUrl: '',
     googleApiKey: 'INSERT_API_KEY_HERE',
     auth0Domain: 'INSERT_AUTH0_DOMAIN',
     auth0ClientId: 'INSERT_AUTH0_CLIENTID'

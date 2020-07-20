@@ -8,5 +8,4 @@ export class ProfileService {
 
   constructor(private auth: AuthService) { }
 
-  
 }

@@ -43,6 +43,15 @@ export class RunfindrEnvironmentService {
     });
   }
 
+  getLocalApiUrl() {
+    if (this.envSource.value) {
+      return `${this.envSource.value.localApiUrl}/api`;
+    } else {
+      console.error('ERROR: runfindr environment has not been loaded when requesting URL.');
+      return null;
+    }
+  }
+
   getApiUrl() {
     if (this.envSource.value) {
       return `${this.envSource.value.serverUrl}/api`;
