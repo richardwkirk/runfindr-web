@@ -25,21 +25,23 @@ app.get('/env', function(req, res) {
       serverUrl: process.env.RUNFINDR_SERVER_URL || 'http://SERVER_URL_NOT_CONFIGURED',
       googleApiKey: process.env.GOOGLE_API_KEY || 'API_KEY_NOT_CONFIGURED',
       auth0Domain: process.env.AUTH0_DOMAIN || 'AUTH0_NOT_CONFIGURED',
-      auth0ClientId: process.env.AUTH0_CLIENTID || 'AUTH0_NOT_CONFIGURED',
+      auth0ClientId: process.env.AUTH0_CLIENTID || 'AUTH0_NOT_CONFIGURED'
     });
 });
 
-app.get('/api/user/:user_id', function(req, res) {
-  console.log(`Querying for user: ${req.params.user_id}`);
+function getRunfindrTable() {
+  return process.env.RUNFINDR_TABLE || 'runfindr-dev';
+}
 
+function getItem(type, uid, res) {
   const aws = require('aws-sdk');
   aws.config.update({region: 'eu-west-1'});
   const docClient = new aws.DynamoDB.DocumentClient();
   const params = {
-    TableName: 'runfindr-dev',
+    TableName: getRunfindrTable(),
     Key: {
-      'type': 'user',
-      'uid': req.params.user_id
+      'type': type,
+      'uid': uid
     }
   };
   
@@ -51,21 +53,16 @@ app.get('/api/user/:user_id', function(req, res) {
       res.json(data.Item);
     }
   });
-});
 
-app.put('/api/user/:user_id', function(req, res) {
-  if (!req.body) {
-    console.error('Misisng body from user profile write request.');
-  }
+}
 
-  console.log(`Writing user profile: ${req.body.user_id}`);
-
+function putItem(item, res) {
   const aws = require('aws-sdk');
   aws.config.update({region: 'eu-west-1'});
   const docClient = new aws.DynamoDB.DocumentClient();
   const params = {
-    TableName: 'runfindr-dev',
-    Item: req.body
+    TableName: getRunfindrTable(),
+    Item: item
   };
   
   docClient.put(params, function(err, data) {
@@ -76,7 +73,20 @@ app.put('/api/user/:user_id', function(req, res) {
       res.json(data.Item);
     }
   });
+}
 
+app.get('/api/user/:user_id', function(req, res) {
+  console.log(`Querying for user: ${req.params.user_id}`);
+  return getItem('user', req.params.user_id, res);
+});
+
+app.put('/api/user/:user_id', function(req, res) {
+  if (!req.body) {
+    console.error('Misisng body from user profile write request.');
+  }
+
+  console.log(`Writing user profile: ${req.body.user_id}`);
+  putItem(req.body, res);
 });
 
 // Send all requests to index.html

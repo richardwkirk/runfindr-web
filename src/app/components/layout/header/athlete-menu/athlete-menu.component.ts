@@ -15,9 +15,9 @@ export class AthleteMenuComponent implements OnInit {
 
   showAthleteCompare = false;
 
-  recentAthletes: AthleteKey[];
-  visibleRecentAthletes: AthleteKey[];
-  compareAthletes: AthleteKey[];
+  recentAthletes: AthleteKey[] = [];
+  visibleRecentAthletes: AthleteKey[] = [];
+  compareAthletes: AthleteKey[] = [];
 
   athleteSearchControl = new FormControl('');
   compareAthleteControl = new FormControl('');

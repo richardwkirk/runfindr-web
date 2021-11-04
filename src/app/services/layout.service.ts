@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MenuContext } from '../components/layout/LayoutOptions';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

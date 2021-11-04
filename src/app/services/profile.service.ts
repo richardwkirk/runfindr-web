@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { UserProfile } from '../models/UserProfile';
+import { UserProfile } from '../models/run-directory/UserProfile';
 import { RunfindrEnvironmentService } from './runfindr-environment.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -57,6 +57,7 @@ export class ProfileService {
       email: authProfile.email,
       picture: authProfile.picture,
       parkrun_enabled: false,
+      clubs: [],
       cdt: new Date().toISOString(),
       udt: new Date().toISOString()
     };

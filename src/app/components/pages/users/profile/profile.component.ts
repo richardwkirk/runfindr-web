@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from 'src/app/services/profile.service';
 import { Icons } from 'src/app/components/layout/Icons';
-import { UserProfile } from 'src/app/models/UserProfile';
+import { UserProfile } from 'src/app/models/run-directory/UserProfile';
 
 @Component({
   selector: 'app-profile',

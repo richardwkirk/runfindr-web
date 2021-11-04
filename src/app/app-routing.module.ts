@@ -8,6 +8,7 @@ import { PrintableTrumpsComponent } from './components/trumps/printable-trumps/p
 import { HelpComponent } from './components/pages/help/help.component';
 import { ProfileComponent } from './components/pages/users/profile/profile.component';
 import { ParkrunComponent } from './components/pages/welcome/parkrun/parkrun.component';
+import { RunsComponent } from './components/pages/runs/runs.component';
 
 const routes: Routes = [
   { path: 'map/:region', component: MapComponent },
@@ -22,7 +23,9 @@ const routes: Routes = [
   { path: '', component: WelcomeComponent },
   { path: 'help', component: HelpComponent },
   { path: 'android', component: AndroidPrivacyPolicyComponent },
+  
   { path: 'profile', component: ProfileComponent },
+  { path: 'runs', component: RunsComponent },
 ];
 
 @NgModule({

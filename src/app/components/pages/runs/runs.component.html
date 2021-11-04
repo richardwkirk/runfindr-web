@@ -1,0 +1,43 @@
+<div class="container">
+  
+  <div *ngIf="createRun">
+    <br />
+    <h2>Create run</h2>
+
+    <form [formGroup]="runForm" (ngSubmit)="submitRun()" novalidate>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input id="name" formControlName="name" class="form-control required" [ngClass]="{'is-invalid': !runForm.controls.name.valid}" type="text" required>
+
+        <label for="description">Description:</label>
+        <input id="description" formControlName="description" class="form-control" type="text">
+
+        <br />
+        <button type="submit" class="btn btn-primary">Create</button>
+        &nbsp;
+        <button type="button" class="btn btn-secondary" (click)="toggleCreateRun()">Cancel</button>
+      </div>
+    </form>
+
+  </div>
+  
+  <div *ngIf="!createRun">
+    <div>
+      <br />
+      <h2>Your runs</h2>
+  
+      <button type="button" class="btn btn-primary" (click)="toggleCreateRun()">Create Run</button>
+    </div>
+  
+    <div>
+      <br />
+      <h2>Upcoming runs</h2>
+  
+    </div>
+  
+  </div>
+
+  <br />
+  <br />
+
+</div>

@@ -8,16 +8,22 @@
         </small>
       </h1>
       <br />
+      <!--
       <div *ngIf="!auth.loggedIn">
         <a class="btn btn-primary btn-lg" href="" role="button" button (click)="auth.login()"><fa-icon [styles]="{'color': 'white'}" [icon]="signInIcon"></fa-icon>&nbsp;Log In</a>
       </div>
       <div *ngIf="auth.loggedIn">
+        <a class="btn btn-primary btn-lg" routerLink="runs" role="button" button *ngIf="auth.loggedIn"><fa-icon [styles]="{'color': 'white'}" [icon]="runningIcon"></fa-icon>&nbsp;Runs &raquo;</a>
+        &nbsp; &nbsp;
+        <a class="btn btn-primary btn-lg" routerLink="clubs" role="button" button *ngIf="auth.loggedIn"><fa-icon [styles]="{'color': 'white'}" [icon]="clubsIcon"></fa-icon>&nbsp;Clubs &raquo;</a>
+        <br /><br />
         <a class="btn btn-primary btn-lg" routerLink="profile" role="button" button *ngIf="auth.loggedIn"><fa-icon [styles]="{'color': 'white'}" [icon]="userIcon"></fa-icon>&nbsp;Profile &raquo;</a>
-        &nbsp;
+        <br /><br />
         <a class="btn btn-primary btn-lg" routerLink="parkrun" role="button" button *ngIf="auth.loggedIn"><fa-icon [styles]="{'color': 'white'}" [icon]="runningIcon"></fa-icon>&nbsp;parkrun &raquo;</a>
         <br /><br />
         <a class="btn btn-primary btn-lg" href="" role="button" button (click)="auth.logout()" *ngIf="auth.loggedIn"><fa-icon [styles]="{'color': 'white'}" [icon]="signOutIcon"></fa-icon>&nbsp;Log Out</a>
       </div>
-      
+      -->
+      <a class="btn btn-primary btn-lg" routerLink="parkrun" role="button" button><fa-icon [styles]="{'color': 'white'}" [icon]="runningIcon"></fa-icon>&nbsp;parkrun &raquo;</a>
   </div>
 </div>

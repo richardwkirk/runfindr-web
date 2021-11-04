@@ -60,8 +60,11 @@ export class MappedEvent {
     constructor(private mapSettings: MapSettings) {}
 
     createLabel() {
-        if (this.order) {
-            this.label = {color: 'white', fontFamily: 'courier', fontSize: 'x-small', fontWeight: 'bold', text: this.order};
+        if (this.mapSettings.showAlphabet) {
+            this.label = {color: 'white', fontFamily: 'courier', fontSize: 'x-small', fontWeight: 'bold', text: this.event.shortName.substr(0, 1)};
+        }
+        else if (this.order) {
+            this.label = {color: 'black', fontFamily: 'courier', fontSize: 'small', fontWeight: 'bold', text: this.order};
         }
         else {
             this.label = null;
@@ -85,6 +88,10 @@ export class MappedEvent {
         else if ((this.visitType & VisitType.Secondary) !== 0) {
             this.iconUrl = '/assets/event_visited_other_balloon.png';
             this.priority = 5;
+        }
+        else if (this.mapSettings.showAlphabet) {
+            this.iconUrl = '/assets/event_balloon_blank.png';
+            this.priority = 1;
         }
 
         if (this.mapSettings.showCancellations && MappedEventHelper.isCancelled(this.event)) {
@@ -139,8 +146,8 @@ export class MappedEvent {
         this.visited = false;
         this.visitors = [];
         this.order = null;
-        this.label = null;
         this.hidden = false;
+        this.createLabel();
         this.setVisitSpecificAttributes();
     }
 
@@ -187,4 +194,3 @@ export class MappedEventHelper {
         return false;
     }
 }
-

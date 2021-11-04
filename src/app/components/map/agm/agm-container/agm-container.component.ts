@@ -114,6 +114,24 @@ export class AgmContainerComponent implements OnInit {
     } else if (this.athlete) {
       this.setVisitedMarkersForAthlete(this.athlete, true);
     }
+
+    this.updateAlphabetMarkers();
+  }
+  
+  private updateAlphabetMarkers() {
+    if (!this.mapSettings.showAlphabet) return;
+
+    const visitedAlphabet = new Set();
+    for (const athlete of [...(this.compareAthletes || []), this.athlete]) {
+      athlete.results.forEach((r) => visitedAlphabet.add(r.event.substr(0, 1)));
+    }
+
+    for (const mappedEvent of this.mappedEvents || []) {
+      if (!mappedEvent.visited && visitedAlphabet.has(mappedEvent.event.shortName.substr(0, 1))) {
+        mappedEvent.hidden = true;
+      }
+    }
+
   }
 
   setVisitedMarkersForAthletesTogether(athletes: Athlete[]) {
@@ -156,7 +174,7 @@ export class AgmContainerComponent implements OnInit {
     return matchedResults;
   }
 
-  setVisitedMarkersForAthlete(athlete: Athlete, isPrimary: boolean) {
+  setVisitedMarkersForAthlete(athlete: Athlete, isPrimary: boolean) { 
     let order = 0;
     const visitedEventOrder = {};
     athlete.results.forEach(r => {
@@ -169,7 +187,9 @@ export class AgmContainerComponent implements OnInit {
 
   setVisitedEvent(athlete: Athlete, result: Result, isPrimary: boolean, order: number) {
     if (this.mappedEvents) {
-      this.mappedEvents.filter(m => m.event.shortName === result.event).forEach(m => m.addVisit(athlete, result, isPrimary, order));
+      this.mappedEvents.filter(m => m.event.shortName === result.event).forEach(m => {
+        m.addVisit(athlete, result, isPrimary, order);
+      });
     }
   }
 

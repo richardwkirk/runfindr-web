@@ -1,4 +1,4 @@
-import { RunfindrDomainObject } from './RunfindrDomainObject';
+import { RunfindrDomainObject } from '../RunfindrDomainObject';
 
 export interface UserProfile extends RunfindrDomainObject {
 
@@ -17,5 +17,7 @@ export interface UserProfile extends RunfindrDomainObject {
     cdt: string;
 
     udt: string;
+
+    clubs: string[];
 
 }

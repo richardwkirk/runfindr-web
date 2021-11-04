@@ -52,6 +52,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       showCancellations: true,
       showOrder: false,
       showTogetherness: false,
+      showAlphabet: false,
       specialEvent: 'none'
     };
   }

@@ -21,7 +21,8 @@ export class WelcomeComponent implements OnInit {
   runningIcon = Icons.Running;
   signInIcon = Icons.SignIn;
   signOutIcon = Icons.SignOut;
-
+  clubsIcon = Icons.Clubs;
+  
   constructor(private layoutService: LayoutService,
               public auth: AuthService,
               public profileService: ProfileService) {

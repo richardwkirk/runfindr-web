@@ -45,6 +45,7 @@ import { AndroidPrivacyPolicyComponent } from './components/pages/android/androi
 import { HelpComponent } from './components/pages/help/help.component';
 import { ParkrunComponent } from './components/pages/welcome/parkrun/parkrun.component';
 import { ProfileComponent } from './components/pages/users/profile/profile.component';
+import { RunsComponent } from './components/pages/runs/runs.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { ProfileComponent } from './components/pages/users/profile/profile.compo
     AndroidPrivacyPolicyComponent,
     HelpComponent,
     ParkrunComponent,
-    ProfileComponent
+    ProfileComponent,
+    RunsComponent
   ],
   imports: [
     BrowserModule,

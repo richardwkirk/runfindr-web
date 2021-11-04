@@ -1,4 +1,13 @@
-import { faSleigh, faGlassCheers, faHeart, faGlobe, faMapMarked, faUser, faSignInAlt, faRunning, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSleigh, 
+         faGlassCheers, 
+         faHeart, 
+         faGlobe, 
+         faMapMarked, 
+         faUser, 
+         faSignInAlt, 
+         faRunning, 
+         faSignOutAlt, 
+         faUsers } from '@fortawesome/free-solid-svg-icons';
 
 export class Icons
 {
@@ -19,5 +28,7 @@ export class Icons
     public static SignIn = faSignInAlt;
 
     public static SignOut = faSignOutAlt;
+
+    public static Clubs = faUsers;
 
 }
