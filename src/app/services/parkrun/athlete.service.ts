@@ -31,7 +31,10 @@ export class AthleteService {
   }
 
   getAthlete(athleteId): Observable<Athlete> {
-    return this.http.get<Athlete>(`${this.runfindrEnvironmentService.getApiUrl()}/athletes/history/${athleteId}`);
+    const options = {
+      headers: { 'User-Agent': 'Mozilla/5.0' }
+    } 
+    return this.http.get<Athlete>(`${this.runfindrEnvironmentService.getApiUrl()}/athletes/history/${athleteId}`, options);
   }
 
   changeAthlete(athlete: Athlete) {
